@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: {
@@ -49,6 +50,18 @@
           if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="white"; fi
           PROMPT="%{$fg[$NCOLOR]%}%n%{$reset_color%}@%{$fg[white]%}%m %{$fg[blue]%}%B%c/%b%{$reset_color%} %(\!.#.$) "
         '';
+      };
+    };
+    # Setup nextcloud-client
+    services.nextcloud-client = {
+      enable = true;
+    };
+
+    systemd.user.services.nextcloud-client = {
+      Service.ExecStartPre = lib.mkForce "${pkgs.coreutils}/bin/sleep 10";
+      Unit = {
+        After = lib.mkForce ["graphical-session.target"];
+        PartOf = lib.mkForce [];
       };
     };
   };
