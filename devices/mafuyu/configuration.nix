@@ -6,6 +6,7 @@
   };
 
   modules.development-tools = {
+    cpp = true;
     dotnet = true;
     nix = true;
     python = true;
