@@ -24,20 +24,26 @@ with lib; {
     jetbrains.jdk
     # More XDG
     xdg-user-dirs
-    # Programs
-    filezilla
+    # CLI Tools
     ffmpeg
     yt-dlp
-    p7zip
-    (lowPrio wireshark)
+    tokei
+    # Media
     mpv
     obs-studio
+    # Office / Text
     libreoffice-fresh
-    gimp-with-plugins
     thunderbird
     pympress
     zotero
+    # File management
+    filezilla
+    p7zip
     qdirstat
+    # Network
+    (lowPrio wireshark)
+    # Images
+    gimp-with-plugins
   ];
 
   # Graphics acceleration
