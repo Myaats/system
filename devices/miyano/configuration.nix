@@ -30,6 +30,15 @@
   # Remove when ZFS is supported officially
   nixpkgs.config.allowBroken = true;
 
+  # Enable mullvad
+  modules.services.mullvad = {
+    enable = true;
+    alwaysRequireVpn = true;
+    autoConnect = true;
+    localNetworkSharing = true;
+    location = "no";
+  };
+
   # Import boot config
   imports = [
     ./boot.nix

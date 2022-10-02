@@ -1,6 +1,7 @@
 {profile, ...}: {
   imports = [
     ./assets
+    ./modules
     ./overlays
     ./profiles/base.nix
     ./profiles/${profile}
