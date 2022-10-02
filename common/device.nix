@@ -17,6 +17,9 @@ with lib; {
     profile = mkOption {
       type = types.enum ["desktop" "laptop"];
     };
+    gpu = mkOption {
+      type = types.nullOr (types.enum ["amd" "intel"]);
+    };
   };
 
   config = {

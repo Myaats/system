@@ -11,6 +11,7 @@ with lib; {
     ./audio.nix
     ./fonts.nix
     ./gnome.nix
+    ./hardware.nix
     ./home-managar.nix
     ./user.nix
   ];
@@ -29,7 +30,6 @@ with lib; {
     yt-dlp
     tokei
     # Media
-    mpv
     obs-studio
     # Office / Text
     libreoffice-fresh
@@ -45,16 +45,6 @@ with lib; {
     # Images
     gimp-with-plugins
   ];
-
-  # Graphics acceleration
-  hardware.opengl = {
-    enable = true;
-    driSupport32Bit = true;
-    extraPackages = with pkgs; [
-      libGL
-    ];
-    setLdLibraryPath = true;
-  };
 
   # Services
   services.dbus.enable = true;

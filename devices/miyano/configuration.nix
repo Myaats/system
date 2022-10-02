@@ -3,6 +3,7 @@
   device = {
     uuid = "014e5cd3-2468-4f88-bbf9-7b1f30a4157f";
     profile = "desktop";
+    gpu = "amd";
   };
 
   # ZFS requires hostid

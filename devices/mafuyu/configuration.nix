@@ -3,6 +3,7 @@
   device = {
     uuid = "d58ed897-5a81-412c-980f-65476f622633";
     profile = "laptop";
+    gpu = "intel";
   };
 
   modules.development-tools = {
