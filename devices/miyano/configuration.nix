@@ -13,6 +13,7 @@
     cpp = true;
     dotnet = true;
     nix = true;
+    node = true;
     python = true;
     rust = true;
     texlive = true;
