@@ -16,6 +16,7 @@
     node = true;
     python = true;
     rust = true;
+    steamos = true;
     texlive = true;
   };
 
