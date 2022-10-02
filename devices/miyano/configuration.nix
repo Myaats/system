@@ -14,6 +14,7 @@
     nix = true;
     python = true;
     rust = true;
+    texlive = true;
   };
 
   # Enable openssh

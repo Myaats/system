@@ -11,6 +11,7 @@
     nix = true;
     python = true;
     rust = true;
+    texlive = true;
   };
 
   system.stateVersion = "22.11";
