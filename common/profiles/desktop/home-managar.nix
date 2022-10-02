@@ -6,21 +6,26 @@
   inputs,
   ...
 }:
-with lib; {
+with lib; let
+  stateVersion = config.system.stateVersion;
+in {
   imports = [
     (import "${inputs.home-manager}/nixos")
   ];
 
-  options.home-manager.mainUsers = mkOption {
-    type = types.listOf types.str;
-    example = ["root"];
-    default = [];
-    description = "Main users for this system";
-  };
-  options.home-manager.config = mkOption {
-    type = options.home-manager.users.type.functor.wrapped;
-    default = {};
-    description = "Home-manager configuration to be used for all main users";
+  # Extend home-manager settings
+  options = {
+    home-manager.mainUsers = mkOption {
+      type = types.listOf types.str;
+      example = ["root"];
+      default = [];
+      description = "Main users for this system";
+    };
+    home-manager.config = mkOption {
+      type = options.home-manager.users.type.functor.wrapped;
+      default = {};
+      description = "Home-manager configuration to be used for all main users";
+    };
   };
 
   config = {
@@ -37,7 +42,8 @@ with lib; {
       config,
       ...
     }: {
-      home.stateVersion = "22.11";
+      # Use the system stateVersion for home-manager
+      home.stateVersion = stateVersion;
 
       # Absolutely proprietary
       nixpkgs.config.allowUnfree = true;
