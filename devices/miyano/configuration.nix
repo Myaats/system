@@ -22,6 +22,9 @@
   # Set NixOS state version
   system.stateVersion = "22.11";
 
+  # Hardware
+  modules.hardware.bluetooth.enable = true; # Enable bluetooth
+
   # Remove when ZFS is supported officially
   nixpkgs.config.allowBroken = true;
 

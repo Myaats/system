@@ -11,5 +11,6 @@ with lib; let
 in {
   imports = importPaths [
     ./development-tools
+    ./hardware
   ];
 }

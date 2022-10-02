@@ -8,4 +8,7 @@ with lib; {
     # Inherit desktop profile
     ../desktop
   ];
+
+  # All my laptops has bluetooth I guess.
+  modules.hardware.bluetooth.enable = true;
 }
