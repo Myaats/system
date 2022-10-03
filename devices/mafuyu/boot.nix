@@ -46,6 +46,7 @@
 
   # Updates
   hardware.cpu.intel.updateMicrocode = true;
+  hardware.enableAllFirmware = true;
 
   nix.settings.max-jobs = lib.mkDefault 4;
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";

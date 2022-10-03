@@ -42,6 +42,7 @@ with lib; {
     qdirstat
     # Network
     (lowPrio wireshark)
+    networkmanagerapplet
     # Images
     gimp-with-plugins
   ];
