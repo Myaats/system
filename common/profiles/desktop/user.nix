@@ -32,29 +32,16 @@
       # Configure zsh
       zsh = {
         enable = true;
+        enableAutosuggestions = true;
+        enableCompletion = true;
         enableSyntaxHighlighting = true;
         enableVteIntegration = true;
-        oh-my-zsh = {
-          enable = true;
-        };
-        plugins = [
-          {
-            name = "zsh-autocomplete";
-            src = pkgs.zsh-autocomplete;
-            file = "share/zsh-autocomplete/zsh-autocomplete.plugin.zsh";
-          }
-        ];
+        oh-my-zsh.enable = true;
         # Custom theme
         initExtra = ''
           # Get nixos-rebuild perl scripts to shutup
           export LANG=${config.i18n.defaultLocale}
           export LC_ALL=${config.i18n.defaultLocale}
-
-          # Configure autocomplete
-          zstyle ':autocomplete:*' min-delay 0.5
-          zstyle ':autocomplete:*' min-input 1
-          zstyle ':autocomplete:*' insert-unambiguous yes
-          zstyle ':autocomplete:*' fzf-completion yes
 
           setopt PROMPT_SUBST
           if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="white"; fi
