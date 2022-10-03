@@ -57,4 +57,6 @@ with lib; {
   networking.networkmanager.enable = true;
   # Network debugging
   programs.wireshark.enable = true;
+  # Evolution
+  programs.evolution.enable = true;
 }
