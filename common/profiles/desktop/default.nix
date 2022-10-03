@@ -45,6 +45,8 @@ with lib; {
     networkmanagerapplet
     # Images
     gimp-with-plugins
+    # Utilities
+    qalculate-gtk
   ];
 
   # Services
