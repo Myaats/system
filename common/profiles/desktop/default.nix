@@ -47,6 +47,7 @@ with lib; {
     # Images
     gimp-with-plugins
     # Utilities
+    piper # Frontend to ratbagd
     qalculate-gtk
   ];
 
@@ -56,6 +57,7 @@ with lib; {
   services.accounts-daemon.enable = true;
   security.polkit.enable = true;
   services.flatpak.enable = true;
+  services.ratbagd.enable = true; # Gaming peripheral mgmt
   # Networking
   networking.networkmanager.enable = true;
   # Network debugging
