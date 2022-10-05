@@ -30,6 +30,7 @@ with lib; {
     yt-dlp
     tokei
     # Media
+    calibre
     obs-studio
     # Office / Text
     libreoffice-fresh
