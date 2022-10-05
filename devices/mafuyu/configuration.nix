@@ -16,9 +16,4 @@
   };
 
   system.stateVersion = "22.11";
-
-  # Import boot config
-  imports = [
-    ./boot.nix
-  ];
 }

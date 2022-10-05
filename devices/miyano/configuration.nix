@@ -23,9 +23,6 @@
   # Enable openssh
   services.openssh.enable = true;
 
-  # Set NixOS state version
-  system.stateVersion = "22.11";
-
   # Hardware
   modules.hardware.bluetooth.enable = true; # Enable bluetooth
 
@@ -41,8 +38,6 @@
     location = "no";
   };
 
-  # Import boot config
-  imports = [
-    ./boot.nix
-  ];
+  # Set NixOS state version
+  system.stateVersion = "22.11";
 }

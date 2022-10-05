@@ -9,6 +9,6 @@ with lib; {
     ../desktop
   ];
 
-  # All my laptops has bluetooth I guess.
+  # All my laptops have bluetooth I guess.
   modules.hardware.bluetooth.enable = true;
 }

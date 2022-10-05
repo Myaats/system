@@ -51,6 +51,7 @@
 
         modules = [
           ./common
+          ./devices/${device}/boot.nix
           ./devices/${device}/configuration.nix
         ];
       };
