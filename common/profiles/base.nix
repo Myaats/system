@@ -1,6 +1,11 @@
 {pkgs, ...}: {
   config = {
     environment.systemPackages = with pkgs; [
+      # Files
+      bat
+      exa
+      file
+      ripgrep
       # Editing
       vim
       # Network
