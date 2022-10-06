@@ -65,6 +65,31 @@ with lib; {
   # Evolution
   programs.evolution.enable = true;
 
+  # Enable steam hardware udev rules
+  hardware.steam-hardware.enable = true;
+
+  # Extra udev rules
+  services.udev.extraRules = ''
+    ### Allow Nintendo Switch access through udev
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="3000", GROUP="wheel"
+
+    # Switch Joy-con (L) (Bluetooth only)
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", KERNELS=="0005:057E:2006.*", MODE="0666"
+
+    # Switch Joy-con (R) (Bluetooth only)
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", KERNELS=="0005:057E:2007.*", MODE="0666"
+
+    # Switch Pro controller (USB and Bluetooth)
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="2009", MODE="0666"
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", KERNELS=="0005:057E:2009.*", MODE="0666"
+
+    # Switch Joy-con charging grip (USB only)
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="200e", MODE="0666"
+
+    # Ducky One 2 RGB TKL
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="04d9", ATTRS{idProduct}=="0356", MODE:="0666"
+  '';
+
   # Enable legacy renegotiation to fix eduroam access
   systemd.services.wpa_supplicant.environment.OPENSSL_CONF = pkgs.writeText "openssl.cnf" ''
     openssl_conf = openssl_init
