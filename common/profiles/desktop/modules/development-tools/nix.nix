@@ -14,6 +14,7 @@ with lib; {
       nixpkgs-lint
       nixpkgs-review
       nixpkgs-fmt
+      nix-index
       nix-prefetch-git
     ];
   };
