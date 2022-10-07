@@ -47,8 +47,10 @@ with lib; {
     # Images
     gimp-with-plugins
     # Utilities
+    barrier
     piper # Frontend to ratbagd
     qalculate-gtk
+    cinnamon.warpinator
   ];
 
   # Services
@@ -89,6 +91,15 @@ with lib; {
     # Ducky One 2 RGB TKL
     SUBSYSTEM=="usb", ATTRS{idVendor}=="04d9", ATTRS{idProduct}=="0356", MODE:="0666"
   '';
+
+  # Open ports
+  networking.firewall.allowedTCPPorts = [
+    # Barrier
+    24800
+    # Warpinator
+    42000
+    42001
+  ];
 
   # Enable legacy renegotiation to fix eduroam access
   systemd.services.wpa_supplicant.environment.OPENSSL_CONF = pkgs.writeText "openssl.cnf" ''
