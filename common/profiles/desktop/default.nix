@@ -66,6 +66,8 @@ with lib; {
   programs.wireshark.enable = true;
   # Evolution
   programs.evolution.enable = true;
+  # Thumbnails
+  services.tumbler.enable = true;
 
   # Enable steam hardware udev rules
   hardware.steam-hardware.enable = true;
