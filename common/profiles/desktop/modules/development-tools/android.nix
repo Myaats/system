@@ -32,7 +32,7 @@ with lib; {
     '';
 
     # Add dart pub executables to path
-    home-manager.config = {config, ...}: {
+    home.config = {config, ...}: {
       programs.zsh.initExtra = ''
         export PATH=${config.home.homeDirectory}/.pub-cache/bin:$PATH
       '';

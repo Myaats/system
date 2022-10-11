@@ -89,7 +89,7 @@ in {
   ];
 
   # Do home-manager spefific configs
-  home-manager.config = {lib, ...}:
+  home.config = {lib, ...}:
     with lib;
     with pkgs.gnomeExtensions; {
       # Setup theme

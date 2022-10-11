@@ -26,7 +26,7 @@
     setLdLibraryPath = true;
   };
 
-  home-manager.config = {
+  home.config = {
     # Enable mpv with vaapi/gpu
     programs.mpv = {
       enable = true;

@@ -8,7 +8,7 @@
   users.users.mats.shell = pkgs.zsh;
 
   # Home config for mats on desktop profile
-  home-manager.users.mats = {
+  home.users.mats = {
     home.sessionVariables.EDITOR = "vim";
 
     programs = {
@@ -64,7 +64,7 @@
   };
 
   # Add mats to home-manager
-  home-manager.mainUsers = ["mats"];
+  home.mainUsers = ["mats"];
 
   # Ensure autocompletion gets linked
   environment.pathsToLink = ["/share/zsh"];

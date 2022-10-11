@@ -137,7 +137,7 @@ in {
   ];
 
   # Use home-manager to update the user settings
-  home-manager.config = {
+  home.config = {
     pkgs,
     config,
     ...

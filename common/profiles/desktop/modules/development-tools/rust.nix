@@ -14,7 +14,7 @@ with lib; {
       wasm-bindgen-cli
     ];
 
-    home-manager.config = {config, ...}: {
+    home.config = {config, ...}: {
       programs.zsh.initExtra = ''
         export PATH=${config.home.homeDirectory}/.cargo/bin:$PATH
       '';

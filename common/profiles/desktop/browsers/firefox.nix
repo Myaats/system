@@ -5,7 +5,7 @@
   ...
 }:
 with lib; {
-  home-manager.config = {
+  home.config = {
     programs.firefox = {
       enable = true;
       package = lib.mkDefault pkgs.firefox;
