@@ -3,12 +3,15 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  users = config.users.users;
+  defaultLocale = config.i18n.defaultLocale;
+in {
   # Default to zsh as shell on desktop
   users.users.mats.shell = pkgs.zsh;
 
   # Home config for mats on desktop profile
-  home-manager.users.mats = {
+  home-manager.config = {config, ...}: {
     home.sessionVariables.EDITOR = "vim";
 
     programs = {
@@ -19,8 +22,8 @@
       git = {
         enable = true;
         package = pkgs.gitFull;
-        userName = "Mats";
-        userEmail = "mats@mats.sh";
+        userName = users.${config.home.username}.description; # Use the user account name
+        userEmail = "${config.home.username}@mats.sh"; # Just put the username on my domain for now
         extraConfig = {
           init.defaultBranch = "master";
           pull.rebase = true;
@@ -42,8 +45,8 @@
         # Custom theme
         initExtra = ''
           # Get nixos-rebuild perl scripts to shutup
-          export LANG=${config.i18n.defaultLocale}
-          export LC_ALL=${config.i18n.defaultLocale}
+          export LANG=${defaultLocale}
+          export LC_ALL=${defaultLocale}
 
           setopt PROMPT_SUBST
           if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="white"; fi
