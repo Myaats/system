@@ -15,40 +15,29 @@ in {
 
   # Extend home-manager settings
   options = {
-    home = {
-      mainUsers = mkOption {
-        type = types.listOf types.str;
-        example = ["root"];
-        default = [];
-        description = "Main users for this system";
-      };
-
-      config = mkOption {
-        type = options.home-manager.users.type.functor.wrapped;
-        default = {};
-        description = "Home-manager configuration to be used for all main users";
-      };
-
-      users = mkOption {
-        type = types.attrsOf options.home-manager.users.type.functor.wrapped;
-        default = {};
-        description = "Home-manager per user configuration";
-      };
+    home-manager.mainUsers = mkOption {
+      type = types.listOf types.str;
+      example = ["root"];
+      default = [];
+      description = "Main users for this system";
+    };
+    home-manager.config = mkOption {
+      type = options.home-manager.users.type.functor.wrapped;
+      default = {};
+      description = "Home-manager configuration to be used for all main users";
     };
   };
 
   config = {
-    home-manager.users =
-      (mkMerge (
-        flip map config.home.mainUsers (
-          user: {
-            ${user} = mkAliasDefinitions options.home.config;
-          }
-        )
-      ))
-      // config.home.users;
+    home-manager.users = mkMerge (
+      flip map config.home-manager.mainUsers (
+        user: {
+          ${user} = mkAliasDefinitions options.home-manager.config;
+        }
+      )
+    );
 
-    home.config = {
+    home-manager.config = {
       inputs,
       config,
       ...
@@ -79,6 +68,6 @@ in {
           message = "The main user ${user} has to exist";
         }
       )
-      config.home.mainUsers;
+      config.home-manager.mainUsers;
   };
 }
