@@ -13,6 +13,8 @@
 
     programs = {
       command-not-found.enable = false; # Does not work with flakes
+      # Enable direnv
+      direnv.enable = true;
       # Configure git defaults
       git = {
         enable = true;
