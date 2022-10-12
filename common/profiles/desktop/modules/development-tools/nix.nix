@@ -17,5 +17,7 @@ with lib; {
       nix-index
       nix-prefetch-git
     ];
+
+    services.lorri.enable = true;
   };
 }
