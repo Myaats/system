@@ -43,6 +43,7 @@ with lib; {
           "toolkit.telemetry.enabled" = false;
           "toolkit.telemetry.archive.enabled" = false;
           "browser.newtabpage.activity-stream.telemetry" = false;
+          "datareporting.healthreport.uploadEnabled" = false;
         };
       };
 
