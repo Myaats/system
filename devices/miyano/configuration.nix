@@ -21,7 +21,10 @@
   };
 
   # Enable openssh
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    passwordAuthentication = false;
+  };
 
   # Hardware
   modules.hardware.bluetooth.enable = true; # Enable bluetooth
