@@ -51,7 +51,6 @@
     "git.ignoreLegacyWarning" = true;
     "telemetry.enableCrashReporter" = false;
     "telemetry.enableTelemetry" = false;
-    "gitlens.advanced.telemetry.enabled" = false;
     "workbench.colorTheme" = "Monokai";
     "workbench.startupEditor" = "newUntitledFile";
     "search.exclude" = {
@@ -60,8 +59,6 @@
       "**/dist" = true;
       "**/node_modules" = true;
     };
-    "gitlens.codeLens.recentChange.enabled" = false;
-    "gitlens.codeLens.authors.enabled" = false;
     "git.enableSmartCommit" = true;
     "typescript.check.npmIsInstalled" = false;
     "files.exclude" = {
@@ -72,20 +69,9 @@
     };
     "git.countBadge" = "off";
     "git.decorations.enabled" = false;
-    "gitlens.advanced.messages" = {
-      "suppressCommitHasNoPreviousCommitWarning" = false;
-      "suppressCommitNotFoundWarning" = false;
-      "suppressFileNotUnderSourceControlWarning" = false;
-      "suppressGitVersionWarning" = false;
-      "suppressLineUncommittedWarning" = false;
-      "suppressNoRepositoryWarning" = false;
-      "suppressUpdateNotice" = false;
-      "suppressWelcomeNotice" = true;
-    };
     "extensions.ignoreRecommendations" = true;
     "commentAnchors.tags.displayInGutter" = false;
     "rust.clippy_preference" = "on";
-    "gitlens.currentLine.enabled" = false;
     "rust-client.autoStartRls" = false;
     "rust-analyzer.cargo.loadOutDirsFromCheck" = true;
     "rust-analyzer.checkOnSave.enable" = true;
@@ -112,7 +98,7 @@
     "rust.all_targets" = false;
     "mesonbuild.configureOnOpen" = true;
     "clangd.onConfigChanged" = "restart";
-    "omnisharp.path" = "/run/current-system/pkgs/omnisharp/bin/OmniSharp";
+    "omnisharp.path" = "${pkgs.omnisharp-roslyn}/bin/OmniSharp";
     "latex-workshop.view.pdf.viewer" = "tab";
     "explorer.confirmDelete" = false;
     "workbench.editorAssociations" = {
