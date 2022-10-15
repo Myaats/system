@@ -14,6 +14,7 @@
     dotnet = true;
     nix = true;
     node = true;
+    podman = true;
     python = true;
     rust = true;
     steamos = true;
