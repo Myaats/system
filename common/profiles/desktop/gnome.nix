@@ -21,6 +21,14 @@
   background = config.assets.bg;
   # Activities icon
   activitiesIcon = config.assets.app-grid;
+  # Custom keybinds
+  keybinds = [
+    {
+      binding = "<Super>c";
+      command = "kgx";
+      name = "console";
+    }
+  ];
 in {
   services.xserver = {
     enable = true;
@@ -113,82 +121,95 @@ in {
         gtk-application-prefer-dark-theme = 1;
       };
 
-      dconf.settings = {
-        # Shell
-        "org/gnome/shell" = {
-          enabled-extensions = (map (e: e.extensionUuid or e.uuid) extensions) ++ extensionUuids;
-          favorite-apps = ["firefox.desktop" "code.desktop" "thunar.desktop" "org.gnome.Terminal.desktop" "com.spotify.Client.desktop" "com.valvesoftware.Steam.desktop"];
-        };
+      dconf.settings =
+        {
+          # Shell
+          "org/gnome/shell" = {
+            enabled-extensions = (map (e: e.extensionUuid or e.uuid) extensions) ++ extensionUuids;
+            favorite-apps = ["firefox.desktop" "code.desktop" "thunar.desktop" "org.gnome.Terminal.desktop" "com.spotify.Client.desktop" "com.valvesoftware.Steam.desktop"];
+          };
 
-        # Update bindings
-        "org/gnome/desktop/wm/keybindings" = {
-          switch-to-workspace-1 = ["<Super>1"];
-          switch-to-workspace-2 = ["<Super>2"];
-          switch-to-workspace-3 = ["<Super>3"];
-          switch-to-workspace-4 = ["<Super>4"];
-          switch-to-workspace-5 = ["<Super>5"];
-          switch-to-workspace-6 = ["<Super>6"];
-          switch-to-workspace-7 = ["<Super>7"];
-          switch-to-workspace-8 = ["<Super>8"];
-          switch-to-workspace-9 = ["<Super>9"];
-          switch-windows = ["<Alt>Tab"];
-          switch-applications = [];
-          # Kill popos-shell conflicting bindings
-          move-to-monitor-left = [];
-          move-to-workspace-down = [];
-          move-to-workspace-up = [];
-          move-to-monitor-right = [];
+          # Update bindings
+          "org/gnome/desktop/wm/keybindings" = {
+            switch-to-workspace-1 = ["<Super>1"];
+            switch-to-workspace-2 = ["<Super>2"];
+            switch-to-workspace-3 = ["<Super>3"];
+            switch-to-workspace-4 = ["<Super>4"];
+            switch-to-workspace-5 = ["<Super>5"];
+            switch-to-workspace-6 = ["<Super>6"];
+            switch-to-workspace-7 = ["<Super>7"];
+            switch-to-workspace-8 = ["<Super>8"];
+            switch-to-workspace-9 = ["<Super>9"];
+            switch-windows = ["<Alt>Tab"];
+            switch-applications = [];
+            # Kill popos-shell conflicting bindings
+            move-to-monitor-left = [];
+            move-to-workspace-down = [];
+            move-to-workspace-up = [];
+            move-to-monitor-right = [];
 
-          # Window
-          close = ["<Super>q"];
-          show-desktop = ["<Super>d"];
-          panel-main-menu = ["<Super>Tab"];
-        };
+            # Window
+            close = ["<Super>q"];
+            show-desktop = ["<Super>d"];
+            panel-main-menu = ["<Super>Tab"];
+          };
 
-        # Interface
-        "org/gnome/desktop/interface" = {
-          enable-animations = false;
-          enable-hot-corners = false;
-          color-scheme = "prefer-dark";
-          font-antialiasing = "rgba";
-          font-hinting = "full";
-          gtk-theme = "Flat-Remix-GTK-Blue-Darkest-Solid";
-          icon-theme = "Flat-Remix-Blue-Dark";
-          shot-battery-percentage = true;
-        };
+          # Interface
+          "org/gnome/desktop/interface" = {
+            enable-animations = false;
+            enable-hot-corners = false;
+            color-scheme = "prefer-dark";
+            font-antialiasing = "rgba";
+            font-hinting = "full";
+            gtk-theme = "Flat-Remix-GTK-Blue-Darkest-Solid";
+            icon-theme = "Flat-Remix-Blue-Dark";
+            shot-battery-percentage = true;
+          };
 
-        # Background
-        "org/gnome/desktop/background" = {
-          picture-options = "zoom";
-          picture-uri = "file://${background}";
-        };
+          # Background
+          "org/gnome/desktop/background" = {
+            picture-options = "zoom";
+            picture-uri = "file://${background}";
+          };
 
-        # Window Manager settings
-        "org/gnome/desktop/wm/preferences" = {
-          button-layout = "appmenu:minimize,maximize,close";
-          num-workspaces = 9;
-        };
-        "org/gnome/shell/overrides" = {
-          dynamic-workspaces = true;
-        };
-        "org/gnome/shell/app-switcher" = {
-          current-workspace-only = true;
-        };
+          # Window Manager settings
+          "org/gnome/desktop/wm/preferences" = {
+            button-layout = "appmenu:minimize,maximize,close";
+            num-workspaces = 9;
+          };
+          "org/gnome/shell/overrides" = {
+            dynamic-workspaces = true;
+          };
+          "org/gnome/shell/app-switcher" = {
+            current-workspace-only = true;
+          };
 
-        # Extensions just-perfections
-        "org/gnome/shell/extensions/just-perfection" = {
-          activities-button = true;
-          activities-button-icon-path = "file://${activitiesIcon}";
-          activities-button-label = false;
-          animation = 2; # Fastest
-          dash-icon-size = 0; # Provided by shell
-          double-super-to-appgrid = true;
-          notification-banner-position = 2; # Move notifications to right
-          panel-button-padding-size = 6;
-          panel-indicator-padding-size = 1;
-          startup-status = 0;
-        };
-      };
+          # Extensions just-perfections
+          "org/gnome/shell/extensions/just-perfection" = {
+            activities-button = true;
+            activities-button-icon-path = "file://${activitiesIcon}";
+            activities-button-label = false;
+            animation = 2; # Fastest
+            dash-icon-size = 0; # Provided by shell
+            double-super-to-appgrid = true;
+            notification-banner-position = 2; # Move notifications to right
+            panel-button-padding-size = 6;
+            panel-indicator-padding-size = 1;
+            startup-status = 0;
+          };
+
+          # Enable custom keybinds
+          "org/gnome/settings-daemon/plugins/media-keys" = {
+            custom-keybindings = lib.imap0 (i: b: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom${toString i}/") keybinds;
+          };
+        }
+        # Configure the custom keybinds
+        // (builtins.listToAttrs (lib.imap0
+          (i: b: {
+            name = "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom${toString i}";
+            value = b;
+          })
+          keybinds));
     };
 
   # Remove the NixOS logo from GDM
