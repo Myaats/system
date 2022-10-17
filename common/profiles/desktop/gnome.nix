@@ -24,7 +24,7 @@
   # Custom keybinds
   keybinds = [
     {
-      binding = "<Super>c";
+      binding = "<Super>Tab";
       command = "kgx";
       name = "console";
     }
