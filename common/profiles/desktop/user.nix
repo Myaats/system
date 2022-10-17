@@ -61,6 +61,10 @@ in {
       ls = "exa";
       cat = "bat";
       l = "exa -lh";
+      # Shortcuts
+      t = "thunar .";
+      # Dev
+      c = "code ."; # Open up the folder in VSCode
       # Git shortcuts
       gd = "git diff";
       gl = "git log --graph";
