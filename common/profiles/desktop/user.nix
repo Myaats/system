@@ -24,6 +24,7 @@ in {
         package = pkgs.gitFull;
         userName = users.${config.home.username}.description; # Use the user account name
         userEmail = "${config.home.username}@mats.sh"; # Just put the username on my domain for now
+        delta.enable = true;
         extraConfig = {
           init.defaultBranch = "master";
           pull.rebase = true;
