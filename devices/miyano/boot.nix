@@ -16,80 +16,30 @@
     options kvm_amd nested=1
   '';
   boot.extraModulePackages = [];
-  # ZFS: Limit the ARC to 6GiB, disable the disk scheduler to make ZFS control the disk
-  # AMD PCI passthrough shit
-  boot.kernelParams = ["zfs.zfs_arc_max=6442450944" "elevator=none" "nohibernate"];
 
-  # Allow unstable zfs
-  boot.zfs.enableUnstable = true;
-
-  boot.loader.grub = {
+  boot.loader.systemd-boot = {
     enable = true;
-    copyKernels = true;
-    efiSupport = true;
-    fsIdentifier = "label";
-    device = "nodev";
-    gfxmodeEfi = "1920x1080";
-    extraEntries = ''
-      menuentry "Windows 11" {
-        insmod part_gpt
-        insmod fat
-        insmod chain
-        chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-      }
-    '';
+    consoleMode = "auto";
   };
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.supportedFilesystems = ["zfs"];
-
   fileSystems."/" = {
-    device = "rpool/system/root";
-    fsType = "zfs";
-  };
-
-  fileSystems."/nix" = {
-    device = "rpool/system/nix";
-    fsType = "zfs";
-  };
-
-  fileSystems."/home" = {
-    device = "rpool/user/home";
-    fsType = "zfs";
+    device = "/dev/disk/by-uuid/3cb30f35-12ca-48d5-81e5-fafe7f8d0ca3";
+    fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/7EE5-5EC9";
+    device = "/dev/disk/by-uuid/B5AC-C207";
     fsType = "vfat";
   };
 
-  fileSystems."/mnt/archive" = {
-    device = "tank/user/archive";
-    fsType = "zfs";
-    options = ["rw"];
+  fileSystems."/mnt/hdd" = {
+    device = "/dev/disk/by-uuid/21e08739-38ce-4fff-9f35-a762cf1413fc";
+    fsType = "ext4";
   };
 
-  fileSystems."/mnt/games" = {
-    device = "tank/user/games";
-    fsType = "zfs";
-    options = ["rw"];
-  };
-
-  fileSystems."/mnt/media" = {
-    device = "tank/user/media";
-    fsType = "zfs";
-    options = ["rw"];
-  };
-
-  fileSystems."/mnt/vms" = {
-    device = "tank/user/vms";
-    fsType = "zfs";
-    options = ["rw"];
-  };
-
-  swapDevices = [
-    {device = "/dev/disk/by-uuid/6e730702-1322-4be8-af87-5ccc794077ec";}
-  ];
+  # Use zram for swapping
+  zramSwap.enable = true;
 
   # Update microcode and enable all firmware
   hardware.cpu.amd.updateMicrocode = true;

@@ -30,9 +30,6 @@
   # Hardware
   modules.hardware.bluetooth.enable = true; # Enable bluetooth
 
-  # Remove when ZFS is supported officially
-  nixpkgs.config.allowBroken = true;
-
   # Enable mullvad
   modules.services.mullvad = {
     enable = true;
