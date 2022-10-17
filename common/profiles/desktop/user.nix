@@ -54,11 +54,29 @@ in {
         '';
       };
     };
+
+    # Shell aliases
+    home.shellAliases = rec {
+      # CLI tools
+      ls = "exa";
+      cat = "bat";
+      l = "exa -lh";
+      # Git shortcuts
+      gd = "git diff";
+      gl = "git log --graph";
+      ga = "git log --graph --all";
+      gf = "git fetch";
+      gp = "git pull";
+      gc = "git commit";
+      # Go to project directory
+      projects = "cd $(ls -d $HOME/Projects/*/*/* | fzf)";
+      p = projects;
+    };
+
     # Setup nextcloud-client
     services.nextcloud-client = {
       enable = true;
     };
-
     systemd.user.services.nextcloud-client = {
       Service.ExecStartPre = lib.mkForce "${pkgs.coreutils}/bin/sleep 10";
       Unit = {
