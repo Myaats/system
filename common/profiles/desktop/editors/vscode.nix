@@ -113,6 +113,10 @@
       "default" = "right";
       "jupyter-notebook" = "left";
     };
+    # Enable custom dialog / tittle bar style and command center
+    "window.dialogStyle" = "custom";
+    "window.titleBarStyle" = "custom";
+    "window.commandCenter" = true;
   };
 in {
   # Install vscode with extensions already installed
