@@ -43,21 +43,45 @@
     ];
   # VSCode user settings
   settings = {
+    # Theming
+    "workbench.colorTheme" = "Monokai";
+    "workbench.colorCustomizations" = {
+      "[Monokai]" = {
+        "titleBar.activeBackground" = "#111";
+        "editor.background" = "#161616";
+        "sideBar.background" = "#111";
+        "sideBarSectionHeader.background" = "#161616";
+        "tab.activeBackground" = "#161616";
+        "tab.inactiveBackground" = "#111";
+        "editorGroupHeader.tabsBackground" = "#111";
+        "statusBar.background" = "#111";
+        "quickInput.background" = "#111";
+        "quickInputList.focusBackground" = "#222";
+        "editorWidget.background" = "#111";
+        "badge.background" = "#222";
+        "input.background" = "#222";
+      };
+    };
+    "workbench.iconTheme" = "vscode-icons"; # Icons
+    # Enable custom dialog / tittle bar style and command center
+    "window.dialogStyle" = "custom";
+    "window.titleBarStyle" = "custom";
+    "window.commandCenter" = true;
+    # Disable bloat in UI
     "workbench.activityBar.visible" = false;
     "workbench.statusBar.visible" = true;
     "explorer.openEditors.visible" = 0;
-    "workbench.iconTheme" = "vscode-icons";
-    "git.ignoreLegacyWarning" = true;
-    "telemetry.enableCrashReporter" = false;
-    "telemetry.enableTelemetry" = false;
-    "workbench.colorTheme" = "Monokai";
     "workbench.startupEditor" = "newUntitledFile";
+    "git.ignoreLegacyWarning" = true;
     "search.exclude" = {
       "**/*.o.dep" = true;
       "**/bower_components" = true;
       "**/dist" = true;
       "**/node_modules" = true;
     };
+    # Kill telemetry
+    "telemetry.enableCrashReporter" = false;
+    "telemetry.enableTelemetry" = false;
     "git.enableSmartCommit" = true;
     "typescript.check.npmIsInstalled" = false;
     "files.exclude" = {
@@ -107,15 +131,10 @@
     "editor.minimap.enabled" = false;
     "workbench.editor.untitled.hint" = "hidden";
     "terminal.integrated.tabs.location" = "left";
-    "tabnine.experimentalAutoImports" = true;
     "notebook.cellToolbarLocation" = {
       "default" = "right";
       "jupyter-notebook" = "left";
     };
-    # Enable custom dialog / tittle bar style and command center
-    "window.dialogStyle" = "custom";
-    "window.titleBarStyle" = "custom";
-    "window.commandCenter" = true;
   };
 in {
   # Install vscode with extensions already installed
