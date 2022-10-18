@@ -49,6 +49,7 @@
       "[Monokai]" = {
         "titleBar.activeBackground" = "#111";
         "editor.background" = "#161616";
+        "editor.lineHighlightBackground" = "#222";
         "sideBar.background" = "#111";
         "sideBarSectionHeader.background" = "#161616";
         "tab.activeBackground" = "#161616";
@@ -60,6 +61,11 @@
         "editorWidget.background" = "#111";
         "badge.background" = "#222";
         "input.background" = "#222";
+        "list.focusBackground" = "#222";
+        "list.hoverBackground" = "#222";
+        "list.inactiveSelectionBackground" = "#222";
+        "list.activeSelectionBackground" = "#222";
+        "dropdown.background" = "#222";
       };
     };
     "workbench.iconTheme" = "vscode-icons"; # Icons
