@@ -45,7 +45,6 @@
   settings = {
     "workbench.activityBar.visible" = false;
     "workbench.statusBar.visible" = true;
-    "window.menuBarVisibility" = "toggle";
     "explorer.openEditors.visible" = 0;
     "workbench.iconTheme" = "vscode-icons";
     "git.ignoreLegacyWarning" = true;
