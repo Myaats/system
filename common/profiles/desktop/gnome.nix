@@ -25,8 +25,18 @@
   keybinds = [
     {
       binding = "<Super>Tab";
+      command = "guake-toggle";
+      name = "guake";
+    }
+    {
+      binding = "<Super>c";
       command = "kgx";
       name = "console";
+    }
+    {
+      binding = "<Super>z";
+      command = "guake --show -e \"op && exit\"";
+      name = "open project";
     }
   ];
 in {
@@ -58,6 +68,8 @@ in {
       # Theme
       flat-remix-icon-theme
       flat-remix-gtk
+      # Dropdown terminal
+      guake
     ]
     ++ extensions;
 
@@ -196,6 +208,15 @@ in {
             panel-button-padding-size = 6;
             panel-indicator-padding-size = 1;
             startup-status = 0;
+          };
+
+          # Configure guake (dropdown terminal)
+          "apps/guake/general" = {
+            window-height = 45;
+            window-losefocus = true;
+            start-fullscreen = true;
+            hide-tabs-if-one-tab = true;
+            use-trayicon = false;
           };
 
           # Enable custom keybinds
