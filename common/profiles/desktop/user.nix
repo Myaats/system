@@ -6,6 +6,8 @@
 }: let
   users = config.users.users;
   defaultLocale = config.i18n.defaultLocale;
+  # fzf to find path for project
+  findProject = "ls -d $HOME/Projects/*/*/* | fzf";
 in {
   # Default to zsh as shell on desktop
   users.users.mats.shell = pkgs.zsh;
@@ -74,8 +76,10 @@ in {
       gp = "git pull";
       gc = "git commit";
       # Go to project directory
-      projects = "cd $(ls -d $HOME/Projects/*/*/* | fzf)";
+      projects = "cd $(${findProject})";
       p = projects;
+      # Open project in code
+      op = "code $(${findProject})";
     };
 
     # Setup nextcloud-client

@@ -89,6 +89,9 @@
     "window.dialogStyle" = "custom";
     "window.titleBarStyle" = "custom";
     "window.commandCenter" = true;
+    # Start maximized
+    "window.newWindowDimensions" = "maximized";
+    "window.restoreFullscreen" = true;
     # Disable bloat in UI
     "workbench.activityBar.visible" = false;
     "workbench.statusBar.visible" = true;
