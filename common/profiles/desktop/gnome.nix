@@ -38,6 +38,11 @@
       command = "guake --show -e \"op && exit\" -r \"Open project\"";
       name = "open project";
     }
+    {
+      binding = "<Super>x";
+      command = "qalculate-gtk";
+      name = "qalculate";
+    }
   ];
 in {
   services.xserver = {
