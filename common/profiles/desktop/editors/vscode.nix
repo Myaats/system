@@ -45,27 +45,43 @@
   settings = {
     # Theming
     "workbench.colorTheme" = "Monokai";
+    # Override monokai colors to make the theme darker
     "workbench.colorCustomizations" = {
       "[Monokai]" = {
+        # Titlebar
         "titleBar.activeBackground" = "#111";
-        "editor.background" = "#161616";
+        # Menu
+        "menu.background" = "#111";
+        "menu.selectionBackground" = "#222";
+        "menubar.selectionBackground" = "#222";
+        # Editor
+        "editor.background" = "#141414";
         "editor.lineHighlightBackground" = "#222";
+        # Activity bar
+        "activityBar.background" = "#141414";
+        "activityBar.activeBorder" = "#333";
+        "badge.background" = "#222";
+        # Sidebar
         "sideBar.background" = "#111";
-        "sideBarSectionHeader.background" = "#161616";
-        "tab.activeBackground" = "#161616";
+        "sideBarSectionHeader.background" = "#141414";
+        # Tabs
+        "tab.activeBackground" = "#141414";
         "tab.inactiveBackground" = "#111";
         "editorGroupHeader.tabsBackground" = "#111";
+        # Statusbar
         "statusBar.background" = "#111";
+        # Input
         "quickInput.background" = "#111";
         "quickInputList.focusBackground" = "#222";
         "editorWidget.background" = "#111";
-        "badge.background" = "#222";
         "input.background" = "#222";
         "list.focusBackground" = "#222";
         "list.hoverBackground" = "#222";
         "list.inactiveSelectionBackground" = "#222";
         "list.activeSelectionBackground" = "#222";
+        # Misc
         "dropdown.background" = "#222";
+        "toolbar.hoverBackground" = "#333";
       };
     };
     "workbench.iconTheme" = "vscode-icons"; # Icons
