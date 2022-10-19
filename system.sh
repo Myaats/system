@@ -37,7 +37,7 @@ if [[ "${#args[@]}" -eq 0 || ("${#args[@]}" -eq 1 && ("${args[0]}" = "-h" || "${
     echo "    switch      Build and switch to generation"
     echo ""
     echo "For help with each subcommand run:"
-    echo "$BIN <subcommand> -h|--help"
+    echo "$BIN <subcommand> --help"
     echo ""
 else
     for arg in "${args[@]}"; do
