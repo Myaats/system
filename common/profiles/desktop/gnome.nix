@@ -25,7 +25,7 @@
   keybinds = [
     {
       binding = "<Super>Tab";
-      command = "guake-toggle";
+      command = "guake -t";
       name = "guake";
     }
     {
@@ -35,7 +35,7 @@
     }
     {
       binding = "<Super>z";
-      command = "guake --show -e \"op && exit\"";
+      command = "guake --show -e \"op && exit\" -r \"Open project\"";
       name = "open project";
     }
   ];
@@ -216,6 +216,7 @@ in {
             window-losefocus = true;
             start-fullscreen = true;
             hide-tabs-if-one-tab = true;
+            use-popup = false;
             use-trayicon = false;
           };
 
