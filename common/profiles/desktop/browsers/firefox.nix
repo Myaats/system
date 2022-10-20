@@ -8,7 +8,7 @@ with lib; {
   home-manager.config = {
     programs.firefox = {
       enable = true;
-      package = lib.mkDefault pkgs.firefox;
+      package = lib.mkDefault pkgs.firefox-wayland;
       profiles.mats = {
         settings = {
           "browser.search.region" = "NO";
