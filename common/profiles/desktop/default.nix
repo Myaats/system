@@ -51,6 +51,8 @@ with lib; {
     piper # Frontend to ratbagd
     qalculate-gtk
     cinnamon.warpinator
+    virt-manager # UI for libvirtd
+    OVMF # UEFI for VMs
   ];
 
   # Services
@@ -68,6 +70,11 @@ with lib; {
   programs.evolution.enable = true;
   # Thumbnails
   services.tumbler.enable = true;
+  # Enable virtd
+  virtualisation.libvirtd = {
+    enable = true;
+    onBoot = "ignore";
+  };
 
   # Enable steam hardware udev rules
   hardware.steam-hardware.enable = true;
