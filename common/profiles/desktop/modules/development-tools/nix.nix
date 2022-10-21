@@ -11,6 +11,7 @@ with lib; {
     environment.systemPackages = with pkgs; [
       alejandra
       cachix
+      deploy-rs
       nixpkgs-lint
       nixpkgs-review
       nixpkgs-fmt
