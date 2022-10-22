@@ -12,6 +12,7 @@
   modules.development-tools = {
     cpp = true;
     dotnet = true;
+    ldap = true;
     nix = true;
     node = true;
     podman = true;
