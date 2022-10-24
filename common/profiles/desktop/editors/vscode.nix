@@ -62,14 +62,15 @@
         "activityBar.activeBorder" = "#333";
         "badge.background" = "#222";
         # Sidebar
-        "sideBar.background" = "#111";
+        "sideBar.background" = "#121212";
         "sideBarSectionHeader.background" = "#141414";
         # Tabs
         "tab.activeBackground" = "#141414";
         "tab.inactiveBackground" = "#111";
         "editorGroupHeader.tabsBackground" = "#111";
         # Statusbar
-        "statusBar.background" = "#111";
+        "statusBar.background" = "#121212";
+        "statusBar.noFolderBackground" = "#121212";
         # Input
         "quickInput.background" = "#111";
         "quickInputList.focusBackground" = "#222";
