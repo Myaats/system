@@ -219,7 +219,7 @@ in {
           "apps/guake/general" = {
             window-height = 45;
             window-losefocus = true;
-            start-fullscreen = true;
+            start-fullscreen = false;
             hide-tabs-if-one-tab = true;
             use-popup = false;
             use-trayicon = false;
