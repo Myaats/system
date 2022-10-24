@@ -11,6 +11,7 @@
 
   modules.development-tools = {
     cpp = true;
+    database.postgres = true;
     dotnet = true;
     ldap = true;
     nix = true;
