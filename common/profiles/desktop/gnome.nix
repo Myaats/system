@@ -13,6 +13,7 @@
     mpris-indicator-button
     just-perfection
     status-area-horizontal-spacing
+    transparent-top-bar-adjustable-transparency
     user-themes
   ];
   # UUIDs of gnome extensions to enable
@@ -213,6 +214,11 @@ in {
             panel-button-padding-size = 6;
             panel-indicator-padding-size = 1;
             startup-status = 0;
+          };
+
+          # Extensions transparent top bar
+          "com/ftpix/transparentbar" = {
+            transparency = 0;
           };
 
           # Configure guake (dropdown terminal)
