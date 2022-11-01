@@ -13,6 +13,7 @@
     mpris-indicator-button
     just-perfection
     status-area-horizontal-spacing
+    tailscale-status
     transparent-top-bar-adjustable-transparency
     user-themes
   ];
