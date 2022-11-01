@@ -21,6 +21,7 @@
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPUKK/GkS4KMIbbL2r3qJxV8D6cUDxL/iwbtaOb/9guY" # mats@miyano
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHE9+o74bSCLdPWIgGiF4aEtSY2KUGj3MuOyXvUT4kCw" # mats@mafuyu
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMrDAIMnfHGIYo7EZaFassBU3mddxoDQe7xrjmi0kWuc" # mats@shun
     ];
     uid = 1000;
   };
