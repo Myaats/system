@@ -34,7 +34,6 @@ in {
 
       networking.wireguard.enable = true;
       networking.iproute2.enable = true;
-      networking.firewall.checkReversePath = "loose";
 
       systemd.services.mullvad = {
         description = "Mullvad VPN daemon service";

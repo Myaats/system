@@ -13,6 +13,7 @@ with lib; {
     ./gnome.nix
     ./hardware.nix
     ./home-managar.nix
+    ./networking.nix
     ./user.nix
   ];
 
@@ -62,10 +63,6 @@ with lib; {
   security.polkit.enable = true;
   services.flatpak.enable = true;
   services.ratbagd.enable = true; # Gaming peripheral mgmt
-  # Networking
-  networking.networkmanager.enable = true;
-  # Network debugging
-  programs.wireshark.enable = true;
   # Evolution
   programs.evolution.enable = true;
   # Thumbnails
@@ -75,9 +72,6 @@ with lib; {
     enable = true;
     onBoot = "ignore";
   };
-  # Allow tailscale usage
-  services.tailscale.enable = true;
-  networking.firewall.checkReversePath = "loose";
 
   # Enable steam hardware udev rules
   hardware.steam-hardware.enable = true;
@@ -103,15 +97,6 @@ with lib; {
     # Ducky One 2 RGB TKL
     SUBSYSTEM=="usb", ATTRS{idVendor}=="04d9", ATTRS{idProduct}=="0356", MODE:="0666"
   '';
-
-  # Open ports
-  networking.firewall.allowedTCPPorts = [
-    # Barrier
-    24800
-    # Warpinator
-    42000
-    42001
-  ];
 
   # Enable legacy renegotiation to fix eduroam access
   systemd.services.wpa_supplicant.environment.OPENSSL_CONF = pkgs.writeText "openssl.cnf" ''
