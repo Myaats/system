@@ -75,6 +75,9 @@ with lib; {
     enable = true;
     onBoot = "ignore";
   };
+  # Allow tailscale usage
+  services.tailscale.enable = true;
+  networking.firewall.checkReversePath = "loose";
 
   # Enable steam hardware udev rules
   hardware.steam-hardware.enable = true;
