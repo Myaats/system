@@ -107,8 +107,10 @@ in {
           }
           chain exclude-dns {
             type filter hook output priority -10; policy accept;
-            oif "tailscale0" udp dport 53 ct mark set 0x00000f41 meta mark set 0x6d6f6c65;
-            oif "tailscale0" tcp dport 53 ct mark set 0x00000f41 meta mark set 0x6d6f6c65;
+            ip daddr 100.100.100.100 udp dport 53 ct mark set 0x00000f41 meta mark set 0x6d6f6c65;
+            ip daddr 100.100.100.100 tcp dport 53 ct mark set 0x00000f41 meta mark set 0x6d6f6c65;
+            ip daddr 10.0.0.1 udp dport 53 ct mark set 0x00000f41 meta mark set 0x6d6f6c65;
+            ip daddr 10.0.0.1 tcp dport 53 ct mark set 0x00000f41 meta mark set 0x6d6f6c65;
           }
         }
         EOF
