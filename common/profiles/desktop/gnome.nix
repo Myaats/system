@@ -10,6 +10,7 @@
     always-show-titles-in-overview
     appindicator
     gsconnect
+    inhibit-suspend
     mpris-indicator-button
     just-perfection
     status-area-horizontal-spacing
