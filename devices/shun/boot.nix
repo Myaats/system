@@ -19,9 +19,9 @@ in {
   # Kernel
   boot.initrd.availableKernelModules = ["xhci_pci" "usb_storage" "usbhid" "sd_mod" "sdhci_pci" "acpi_call"];
   boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-amd"];
+  boot.kernelModules = ["kvm-amd" "amd_pstate"];
   boot.extraModulePackages = with config.boot.kernelPackages; [acpi_call];
-  boot.blacklistedKernelModules = ["nvme"]; # Disable NVMe until firmware is fixed
+  boot.blacklistedKernelModules = ["acpi_cpufreq" "nvme"]; # Disable ACPI cpufreq (in favor of p-state) and NVMe until firmware is fixed
   # Kernel patches
   boot.kernelPatches = [
     # Fix s2idle
