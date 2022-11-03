@@ -4,7 +4,10 @@
   pkgs,
   modulesPath,
   ...
-}: {
+}: let
+  # Command to fix speakers
+  fix-speakers = "${pkgs.i2c-tools}/bin/i2cset -y 3 0x48 0x2 0 && ${pkgs.i2c-tools}/bin/i2cset -y 3 0x48 0x3 0";
+in {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
@@ -64,16 +67,39 @@
   hardware.sensor.iio.enable = true;
   # enable i2c (needed to fix speaker setup)
   hardware.i2c.enable = true;
-  # set the audio fix registers https://github.com/PJungkamp/yoga9-linux/issues/8#issuecomment-1265454056
-  systemd.user.services.fix-yoga-speakers = {
-    description = "fix audio registers for audio on 14ARB7";
-    wantedBy = ["pipewire.service"];
-    after = ["pipewire.service"];
-    bindsTo = ["pipewire.service"];
-    serviceConfig.ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.i2c-tools}/bin/i2cset -y 3 0x48 0x2 0 && ${pkgs.i2c-tools}/bin/i2cset -y 3 0x48 0x3 0'";
+  # set the audio fix registers (14ARB7) https://github.com/PJungkamp/yoga9-linux/issues/8#issuecomment-1265454056
+  systemd = {
+    user.services.fix-yoga-speakers-boot = {
+      wantedBy = ["pipewire.service"];
+      after = ["pipewire.service"];
+      bindsTo = ["pipewire.service"];
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.bash}/bin/bash -c '${fix-speakers}'";
+      };
+    };
+    services.fix-yoga-speakers-suspend = {
+      wantedBy = ["suspend.target"];
+      after = ["suspend.target"];
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.bash}/bin/bash -c '${fix-speakers}'";
+      };
+    };
   };
   # fix incorrect power saving on audio controller
   boot.extraModprobeConfig = ''
     options snd_hda_intel power_save=0 power_save_controller=N
   '';
+  # Setup acpid
+  services.acpid = {
+    enable = true;
+    handlers = {
+      # Fix speakers after headphone unplug
+      headphone-unplugged = {
+        action = fix-speakers;
+        event = "jack/headphone HEADPHONE unplug";
+      };
+    };
+  };
 }
