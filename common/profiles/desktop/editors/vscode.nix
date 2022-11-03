@@ -108,6 +108,7 @@
     # Kill telemetry
     "telemetry.enableCrashReporter" = false;
     "telemetry.enableTelemetry" = false;
+    "telemetry.telemetryLevel" = "off";
     "git.enableSmartCommit" = true;
     "typescript.check.npmIsInstalled" = false;
     "files.exclude" = {
