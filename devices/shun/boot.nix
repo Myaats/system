@@ -61,4 +61,18 @@
   hardware.video.hidpi.enable = lib.mkDefault true;
   # iio sensors
   hardware.sensor.iio.enable = true;
+  # enable i2c (needed to fix speaker setup)
+  hardware.i2c.enable = true;
+  # set the audio fix registers https://github.com/PJungkamp/yoga9-linux/issues/8#issuecomment-1265454056
+  systemd.user.services.fix-yoga-speakers = {
+    description = "fix audio registers for audio on 14ARB7";
+    wantedBy = ["pipewire.service"];
+    after = ["pipewire.service"];
+    bindsTo = ["pipewire.service"];
+    serviceConfig.ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.i2c-tools}/bin/i2cset -y 3 0x48 0x2 0 && ${pkgs.i2c-tools}/bin/i2cset -y 3 0x48 0x3 0'";
+  };
+  # fix incorrect power saveing on audio controller
+  boot.extraModprobeConfig = ''
+    options snd_hda_intel power_save=0 power_save_controller=N
+  '';
 }
