@@ -8,6 +8,7 @@
     uuid = "b97e7998-60bf-42f9-b314-f728de1fd7c7";
     profile = "laptop";
     gpu = "amd";
+    touch = true;
   };
 
   modules.development-tools = {
@@ -34,6 +35,18 @@
     /dev/vndbinder = aidl3
     /dev/hwbinder = hidl
   '');
+
+  home-manager.config = {
+    # Setup tablet-osk service
+    systemd.user.services.tablet-osk = {
+      Unit = {
+        After = ["graphical-session-pre.target"];
+        PartOf = ["graphical-session.target"];
+      };
+      Install.WantedBy = ["graphical-session.target"];
+      Service.ExecStart = "${pkgs.local.tablet-osk}/bin/tablet-osk";
+    };
+  };
 
   system.stateVersion = "22.11";
 }

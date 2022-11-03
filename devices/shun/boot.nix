@@ -102,4 +102,8 @@ in {
       };
     };
   };
+  # Expose input switches to userspace
+  services.udev.extraRules = ''
+    KERNEL=="event[0-9]*", ENV{ID_INPUT_SWITCH}=="1", MODE:="0666"
+  '';
 }

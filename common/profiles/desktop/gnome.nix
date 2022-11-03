@@ -3,21 +3,29 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+with lib; let
   # Gnome extensions to use
   extensions = with pkgs;
-  with gnomeExtensions; [
-    always-show-titles-in-overview
-    appindicator
-    gsconnect
-    inhibit-suspend
-    mpris-indicator-button
-    just-perfection
-    status-area-horizontal-spacing
-    tailscale-status
-    transparent-top-bar-adjustable-transparency
-    user-themes
-  ];
+  with gnomeExtensions;
+    [
+      always-show-titles-in-overview
+      appindicator
+      gsconnect
+      inhibit-suspend
+      mpris-indicator-button
+      just-perfection
+      status-area-horizontal-spacing
+      tailscale-status
+      transparent-top-bar-adjustable-transparency
+      user-themes
+    ]
+    # Add improved OSK extension for touch devices
+    ++ (
+      if config.device.touch
+      then [gnomeExtensions.improved-osk]
+      else []
+    );
   # UUIDs of gnome extensions to enable
   extensionUuids = [];
   # Default background
@@ -60,7 +68,7 @@ in {
       # Use gdm as displaymanager
       gdm = {
         enable = true;
-        wayland = lib.mkDefault true; # Default to wayland
+        wayland = mkDefault true; # Default to wayland
       };
     };
   };
@@ -206,6 +214,7 @@ in {
 
           # Extensions just-perfections
           "org/gnome/shell/extensions/just-perfection" = {
+            accessibility-menu = false;
             activities-button = true;
             activities-button-icon-path = "file://${activitiesIcon}";
             activities-button-label = false;
@@ -235,11 +244,11 @@ in {
 
           # Enable custom keybinds
           "org/gnome/settings-daemon/plugins/media-keys" = {
-            custom-keybindings = lib.imap0 (i: b: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom${toString i}/") keybinds;
+            custom-keybindings = imap0 (i: b: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom${toString i}/") keybinds;
           };
         }
         # Configure the custom keybinds
-        // (builtins.listToAttrs (lib.imap0
+        // (builtins.listToAttrs (imap0
           (i: b: {
             name = "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom${toString i}";
             value = b;
@@ -264,7 +273,7 @@ in {
         ${dconf}/bin/dconf compile $out ${customDconf}/dconf
       '';
     };
-  in (lib.mkOverride 50 (pkgs.stdenv.mkDerivation {
+  in (mkOverride 50 (pkgs.stdenv.mkDerivation {
     name = "dconf-gdm-profile";
     buildCommand = ''
       sed '2ifile-db:${customDconfDb}' ${gnome.gdm}/share/dconf/profile/gdm > $out

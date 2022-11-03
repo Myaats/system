@@ -20,6 +20,7 @@ with lib; {
     gpu = mkOption {
       type = types.nullOr (types.enum ["amd" "intel"]);
     };
+    touch = mkEnableOption "Device has touch screen";
   };
 
   config = {
