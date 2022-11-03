@@ -30,6 +30,15 @@
         sha256 = "sha256-wDpuOZz3WowVmw+GbDn2GVXhopbqkxvAvyULWPBuLJk=";
       };
     }
+    # Fix tablet mode
+    {
+      name = "[RFC] Add Lenovo Yoga Mode Control driver";
+      patch = pkgs.fetchpatch {
+        name = "Add-Lenovo-Yoga-Mode-Control-driver.patch";
+        url = "https://patchwork.kernel.org/series/683100/mbox/";
+        sha256 = "sha256-wzDyEEoHnUrvJWYNO9ymILTdM1A0dTZz1BYiTJALBA8=";
+      };
+    }
   ];
 
   fileSystems."/" = {
@@ -47,6 +56,9 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.enableAllFirmware = true;
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
   # high-resolution display
   hardware.video.hidpi.enable = lib.mkDefault true;
+  # iio sensors
+  hardware.sensor.iio.enable = true;
 }
