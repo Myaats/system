@@ -25,15 +25,4 @@
       );
     setLdLibraryPath = true;
   };
-
-  home-manager.config = {
-    # Enable mpv with vaapi/gpu
-    programs.mpv = {
-      enable = true;
-      config = {
-        hwdec = "vaapi";
-        vo = "gpu";
-      };
-    };
-  };
 }

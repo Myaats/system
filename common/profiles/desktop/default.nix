@@ -13,6 +13,7 @@ with lib; {
     ./gnome.nix
     ./hardware.nix
     ./home-managar.nix
+    ./media.nix
     ./networking.nix
     ./user.nix
   ];
