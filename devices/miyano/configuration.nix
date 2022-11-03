@@ -32,8 +32,6 @@
   # Enable mullvad
   modules.services.mullvad = {
     enable = true;
-    alwaysRequireVpn = true;
-    autoConnect = true;
     localNetworkSharing = true;
     location = "no";
   };
