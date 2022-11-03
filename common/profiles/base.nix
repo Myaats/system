@@ -38,5 +38,9 @@
       jq
       neofetch
     ];
+
+    # Disable openssh password auth
+    services.openssh.
+    passwordAuthentication = false;
   };
 }

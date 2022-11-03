@@ -71,7 +71,7 @@
     bindsTo = ["pipewire.service"];
     serviceConfig.ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.i2c-tools}/bin/i2cset -y 3 0x48 0x2 0 && ${pkgs.i2c-tools}/bin/i2cset -y 3 0x48 0x3 0'";
   };
-  # fix incorrect power saveing on audio controller
+  # fix incorrect power saving on audio controller
   boot.extraModprobeConfig = ''
     options snd_hda_intel power_save=0 power_save_controller=N
   '';

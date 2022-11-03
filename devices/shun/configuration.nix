@@ -19,6 +19,9 @@
     texlive = true;
   };
 
+  # Enable openssh
+  services.openssh.enable = true;
+
   virtualisation.waydroid.enable = true;
 
   environment.etc."gbinder.d/waydroid.conf".source = lib.mkOverride 50 (pkgs.writeText "waydroid.conf" ''
