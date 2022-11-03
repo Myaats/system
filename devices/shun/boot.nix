@@ -52,6 +52,7 @@
   };
 
   swapDevices = [];
+  zramSwap.enable = true; # Enable zram
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.enableAllFirmware = true;
