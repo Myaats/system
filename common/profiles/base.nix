@@ -41,7 +41,6 @@
     ];
 
     # Disable openssh password auth
-    services.openssh.
-    passwordAuthentication = false;
+    services.openssh.passwordAuthentication = false;
   };
 }
