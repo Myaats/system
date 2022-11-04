@@ -17,11 +17,10 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Kernel
-  boot.initrd.availableKernelModules = ["xhci_pci" "usb_storage" "usbhid" "sd_mod" "sdhci_pci" "acpi_call"];
+  boot.initrd.availableKernelModules = ["xhci_pci" "usb_storage" "usbhid" "sd_mod" "sdhci_pci" "nvme"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-amd" "amd_pstate"];
-  boot.extraModulePackages = with config.boot.kernelPackages; [acpi_call];
-  boot.blacklistedKernelModules = ["acpi_cpufreq" "nvme"]; # Disable ACPI cpufreq (in favor of p-state) and NVMe until firmware is fixed
+  boot.blacklistedKernelModules = ["acpi_cpufreq"]; # Disable ACPI cpufreq (in favor of p-state)
   # Kernel patches
   boot.kernelPatches = [
     # Fix s2idle
@@ -44,13 +43,18 @@ in {
     }
   ];
 
+  boot.initrd.luks.devices."cryptroot" = {
+    device = "/dev/disk/by-uuid/eab5ccb7-ab0f-4666-9d32-ba456aff421f";
+    preLVM = true;
+  };
+
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/1d3fc2ea-1b74-4281-a9e3-7ec653660c6a";
+    device = "/dev/mapper/cryptroot";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/2E7C-B44E";
+    device = "/dev/disk/by-uuid/B3FA-1B08";
     fsType = "vfat";
   };
 
