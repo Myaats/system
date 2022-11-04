@@ -38,6 +38,8 @@ with lib; {
           "browser.newtabpage.activity-stream.prerender" = false;
           "browser.newtabpage.activity-stream.section.highlights.includePocket" = false;
           "browser.newtabpage.enhanced" = true;
+          # Make .lan resolve using DNS instead of search
+          "browser.fixup.domainsuffixwhitelist.lan" = true;
 
           # Begone telemetry
           "toolkit.telemetry.enabled" = false;
