@@ -17,7 +17,7 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Kernel
-  boot.initrd.availableKernelModules = ["xhci_pci" "usb_storage" "usbhid" "sd_mod" "sdhci_pci" "nvme"];
+  boot.initrd.availableKernelModules = ["xhci_pci" "usb_storage" "usbhid" "sd_mod" "sdhci_pci" "nvme" "tpm_tis"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-amd" "amd_pstate"];
   boot.blacklistedKernelModules = ["acpi_cpufreq"]; # Disable ACPI cpufreq (in favor of p-state)
@@ -42,10 +42,11 @@ in {
       };
     }
   ];
-
+  # Setup LUKS
+  boot.initrd.systemd.enable = true;
   boot.initrd.luks.devices."cryptroot" = {
     device = "/dev/disk/by-uuid/eab5ccb7-ab0f-4666-9d32-ba456aff421f";
-    preLVM = true;
+    crypttabExtraOpts = ["tpm2-device=auto"];
   };
 
   fileSystems."/" = {
