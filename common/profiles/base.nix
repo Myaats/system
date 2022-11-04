@@ -34,6 +34,7 @@
       gitAndTools.git-subrepo
       git-crypt
       # Misc
+      cryptsetup
       openssl
       jq
       neofetch
