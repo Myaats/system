@@ -12,7 +12,7 @@ with lib; let
       always-show-titles-in-overview
       appindicator
       gsconnect
-      inhibit-suspend
+      # inhibit-suspend # - Seems to be slightly bugged
       mpris-indicator-button
       just-perfection
       status-area-horizontal-spacing
