@@ -71,7 +71,10 @@ in {
   # iio sensors
   hardware.sensor.iio.enable = true;
   # enable i2c (needed to fix speaker setup)
-  hardware.i2c.enable = true;
+  hardware.i2c = {
+    enable = true;
+    group = "wheel";
+  };
   # set the audio fix registers (14ARB7) https://github.com/PJungkamp/yoga9-linux/issues/8#issuecomment-1265454056
   systemd = {
     user.services.fix-yoga-speakers-boot = {
