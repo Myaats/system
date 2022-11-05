@@ -30,6 +30,7 @@ with lib; {
     # CLI Tools
     ffmpeg
     yt-dlp
+    tldr
     tokei
     # Media
     calibre
