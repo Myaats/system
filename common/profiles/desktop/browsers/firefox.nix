@@ -8,7 +8,6 @@ with lib; {
   home-manager.config = {
     programs.firefox = {
       enable = true;
-      package = lib.mkDefault pkgs.firefox-wayland;
       profiles.mats = {
         settings = {
           "browser.search.region" = "NO";
@@ -40,6 +39,8 @@ with lib; {
           "browser.newtabpage.enhanced" = true;
           # Make .lan resolve using DNS instead of search
           "browser.fixup.domainsuffixwhitelist.lan" = true;
+          # Enable vaapi
+          "media.ffmpeg.vaapi.enabled" = true;
 
           # Begone telemetry
           "toolkit.telemetry.enabled" = false;
@@ -55,5 +56,7 @@ with lib; {
         ublock-origin
       ];
     };
+    # Force wayland
+    home.sessionVariables = {"MOZ_ENABLE_WAYLAND" = "1";};
   };
 }
