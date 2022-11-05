@@ -93,6 +93,11 @@ in {
         PartOf = lib.mkForce [];
       };
     };
+
+    # Empty Downloads on boot
+    systemd.user.tmpfiles.rules = [
+      "R! /home/${config.home.username}/Downloads/**"
+    ];
   };
 
   # Add mats to home-manager
