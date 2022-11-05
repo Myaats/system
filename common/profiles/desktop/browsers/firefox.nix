@@ -56,7 +56,7 @@ with lib; {
         ublock-origin
       ];
     };
-    # Force wayland
-    home.sessionVariables = {"MOZ_ENABLE_WAYLAND" = "1";};
+
+    systemd.user.sessionVariables = { MOZ_ENABLE_WAYLAND = 1; };
   };
 }
