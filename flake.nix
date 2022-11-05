@@ -31,12 +31,14 @@
         pkgs = import nixpkgs {inherit system;};
         nurpkgs = import nixpkgs {inherit system;};
       };
-    # Function to create a NixOS system for a device
+    # Evaluate the file to find the device profile
     getDeviceProfile = system: path: (nixpkgs.legacyPackages.${system}.callPackage path {}).device.profile;
+    # Function to create a NixOS system for a device
     mkNixosDevice = {
       system ? "x86_64-linux",
       device,
     }: let
+      # Find the device profile for the system
       profile = getDeviceProfile system (./devices + "/${device}/configuration.nix");
     in
       lib.nixosSystem {
@@ -49,6 +51,7 @@
           deviceArgs.hostName = device; # Pass the device name as hostname
         };
 
+        # Load common config and the device specific configuration
         modules = [
           ./common
           ./devices/${device}/boot.nix
