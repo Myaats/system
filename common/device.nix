@@ -20,13 +20,26 @@ with lib; {
     gpu = mkOption {
       type = types.nullOr (types.enum ["amd" "intel"]);
     };
-    touch = mkEnableOption "Device has touch screen";
+    features = mkOption {
+      type = types.listOf (types.enum ["ideapad" "touch"]);
+      default = [];
+    };
   };
 
-  config = {
-    # Get hostname from flake.nix
-    device.hostName = mkDefault deviceArgs.hostName;
-    # Use the hostName provided by flake.nix
-    networking.hostName = config.device.hostName;
-  };
+  config = mkMerge [
+    {
+      # Get hostname from flake.nix
+      device.hostName = mkDefault deviceArgs.hostName;
+      # Use the hostName provided by flake.nix
+      networking.hostName = config.device.hostName;
+    }
+    ### Features for devices
+    # Ideapad features
+    (mkIf (builtins.elem "ideapad" config.device.features) {
+      # Allow gnome extension to toggle conservation mode
+      security.sudo.extraConfig = ''
+        %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/tee /sys/bus/platform/drivers/ideapad_acpi/VPC????\:??/conservation_mode
+      '';
+    })
+  ];
 }

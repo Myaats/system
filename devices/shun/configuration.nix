@@ -8,7 +8,7 @@
     uuid = "b97e7998-60bf-42f9-b314-f728de1fd7c7";
     profile = "laptop";
     gpu = "amd";
-    touch = true;
+    features = ["ideapad" "touch"];
   };
 
   modules.development-tools = {
@@ -47,11 +47,6 @@
       Service.ExecStart = "${pkgs.local.tablet-osk}/bin/tablet-osk";
     };
   };
-
-  # Allow gnome extension to toggle conservation mode
-  security.sudo.extraConfig = ''
-    %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/tee /sys/bus/platform/drivers/ideapad_acpi/VPC????\:??/conservation_mode
-  '';
 
   system.stateVersion = "22.11";
 }

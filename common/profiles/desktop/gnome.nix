@@ -22,13 +22,13 @@ with lib; let
     ]
     # Add improved OSK extension for touch devices
     ++ (
-      if config.device.touch
+      if builtins.elem "touch" config.device.features
       then [gnomeExtensions.improved-osk]
       else []
     )
     # Toggle battery conservation mode on ideapad devices
     ++ (
-      if config.device.hostName == "shun"
+      if builtins.elem "ideapad" config.device.features
       then [gnomeExtensions.ideapad]
       else []
     );
