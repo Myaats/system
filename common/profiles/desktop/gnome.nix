@@ -25,6 +25,12 @@ with lib; let
       if config.device.touch
       then [gnomeExtensions.improved-osk]
       else []
+    )
+    # Toggle battery conservation mode on ideapad devices
+    ++ (
+      if config.device.hostName == "shun"
+      then [gnomeExtensions.ideapad]
+      else []
     );
   # UUIDs of gnome extensions to enable
   extensionUuids = [];

@@ -48,5 +48,10 @@
     };
   };
 
+  # Allow gnome extension to toggle conservation mode
+  security.sudo.extraConfig = ''
+    %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/tee /sys/bus/platform/drivers/ideapad_acpi/VPC????\:??/conservation_mode
+  '';
+
   system.stateVersion = "22.11";
 }
