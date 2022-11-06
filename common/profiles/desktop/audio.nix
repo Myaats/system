@@ -1,7 +1,9 @@
 {pkgs, ...}: {
-  # Add volume control (pulse)
   environment.systemPackages = with pkgs; [
+    # Add volume control (pulse)
     pavucontrol
+    # Audio effects (pipewire)
+    easyeffects
   ];
 
   # Force disable pulseaudio
