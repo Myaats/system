@@ -39,8 +39,6 @@ with lib; {
           "browser.newtabpage.enhanced" = true;
           # Make .lan resolve using DNS instead of search
           "browser.fixup.domainsuffixwhitelist.lan" = true;
-          # Enable vaapi
-          "media.ffmpeg.vaapi.enabled" = true;
 
           # Begone telemetry
           "toolkit.telemetry.enabled" = false;
