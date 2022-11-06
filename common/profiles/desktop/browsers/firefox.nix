@@ -57,6 +57,6 @@ with lib; {
       ];
     };
 
-    systemd.user.sessionVariables = { MOZ_ENABLE_WAYLAND = 1; };
+    systemd.user.sessionVariables = {MOZ_ENABLE_WAYLAND = 1;};
   };
 }
