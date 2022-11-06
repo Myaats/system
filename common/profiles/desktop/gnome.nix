@@ -60,6 +60,21 @@ with lib; let
       command = "qalculate-gtk";
       name = "qalculate";
     }
+    {
+      binding = "<Ctrl>F10";
+      command = "${pkgs.playerctl}/bin/playerctl previous";
+      name = "previous media";
+    }
+    {
+      binding = "<Ctrl>F11";
+      command = "${pkgs.playerctl}/bin/playerctl play-pause";
+      name = "play-pause media";
+    }
+    {
+      binding = "<Ctrl>F12";
+      command = "${pkgs.playerctl}/bin/playerctl next";
+      name = "next media";
+    }
   ];
 in {
   services.xserver = {
