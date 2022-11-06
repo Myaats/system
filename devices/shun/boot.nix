@@ -91,7 +91,7 @@ in {
       after = ["suspend.target"];
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${pkgs.bash}/bin/bash -c '${fix-speakers}'";
+        ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/sleep 4 && ${fix-speakers}'";
       };
     };
   };
