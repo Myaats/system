@@ -279,7 +279,7 @@ in {
       # Init guake on session start so binds work first try
       systemd.user.services.init-guake = {
         Unit = {
-          After = ["graphical-session-pre.target"];
+          After = ["graphical-session.target"];
           PartOf = ["graphical-session.target"];
         };
         Install.WantedBy = ["graphical-session.target"];
