@@ -275,6 +275,19 @@ in {
             value = b;
           })
           keybinds));
+
+      # Init guake on session start so binds work first try
+      systemd.user.services.init-guake = {
+        Unit = {
+          After = ["graphical-session-pre.target"];
+          PartOf = ["graphical-session.target"];
+        };
+        Install.WantedBy = ["graphical-session.target"];
+        Service = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.guake}/bin/guake --hide";
+        };
+      };
     };
 
   # Remove the NixOS logo from GDM
