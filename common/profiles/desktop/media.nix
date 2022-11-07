@@ -12,4 +12,7 @@
       };
     };
   };
+
+  # Install jellyfin-mpv-shim
+  environment.systemPackages = [pkgs.jellyfin-mpv-shim];
 }
