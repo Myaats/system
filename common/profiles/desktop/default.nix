@@ -14,6 +14,7 @@ with lib; {
     ./hardware.nix
     ./home-managar.nix
     ./media.nix
+    ./mounts.nix
     ./networking.nix
     ./user.nix
   ];
