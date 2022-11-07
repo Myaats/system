@@ -16,8 +16,7 @@
       "x-systemd.idle-timeout=10min"
     ];
   };
-in
-{
+in {
   fileSystems = {
     "/run/mount/archive" = mountNfs "shion" "/mnt/archive";
     "/run/mount/media" = mountNfs "shion" "/mnt/media";
