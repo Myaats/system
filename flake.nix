@@ -25,7 +25,6 @@
     home-manager,
     fenix,
   } @ inputs: let
-    lib = nixpkgs.lib;
     nurPkgs = system:
       import nur {
         pkgs = import nixpkgs {inherit system;};
@@ -38,6 +37,7 @@
       system ? "x86_64-linux",
       device,
     }: let
+      lib = nixpkgs.lib // (import ./lib nixpkgs.legacyPackages.${system});
       # Find the device profile for the system
       profile = getDeviceProfile system (./devices + "/${device}/configuration.nix");
     in
@@ -45,7 +45,7 @@
         inherit system;
 
         specialArgs = {
-          inherit system inputs nixpkgs home-manager profile;
+          inherit system inputs nixpkgs home-manager profile lib;
           nur = nurPkgs system;
           fenix = fenix.packages.${system};
           deviceArgs.hostName = device; # Pass the device name as hostname
@@ -61,9 +61,9 @@
   in {
     # Create NixOS configurations for all devices
     nixosConfigurations =
-      lib.attrsets.mapAttrs'
+      nixpkgs.lib.attrsets.mapAttrs'
       (device: _:
-        lib.attrsets.nameValuePair device (mkNixosDevice {
+        nixpkgs.lib.attrsets.nameValuePair device (mkNixosDevice {
           inherit device;
         }))
       (builtins.readDir ./devices);

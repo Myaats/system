@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+with lib; let
   # VSCode extensions
   vscodeExtensions = with pkgs.vscode-extensions;
     [
@@ -178,16 +179,6 @@ in {
     ...
   }: {
     # Update the settings.json
-    home.activation.update-code-settings = config.lib.dag.entryAfter ["writeBoundary"] ''
-      mkdir -p ~/.config/Code/User/
-      if [ ! -f ~/.config/Code/User/settings.json ]
-      then
-          echo "{}" > ~/.config/Code/User/settings.json
-      fi
-
-      # Store it as a variable to avoid race condition
-      UPDATED_SETTINGS=$(jq -s 'reduce .[] as $item ({}; . * $item)' ~/.config/Code/User/settings.json ${pkgs.writeText "settings.json" (builtins.toJSON settings)})
-      echo "$UPDATED_SETTINGS" > ~/.config/Code/User/settings.json
-    '';
+    home.activation.update-code-settings = config.lib.dag.entryAfter ["writeBoundary"] (mergeJson "~/.config/Code/User/settings.json" settings);
   };
 }

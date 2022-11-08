@@ -49,7 +49,7 @@
             exec = oldAttrs.pname;
             icon = oldAttrs.pname;
             desktopName = "Jellyfin MPV Shim";
-            categories = [ "Video" "AudioVideo" "TV" "Player" ];
+            categories = ["Video" "AudioVideo" "TV" "Player"];
           };
         });
       })
