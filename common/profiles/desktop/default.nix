@@ -75,6 +75,8 @@ with lib; {
     enable = true;
     onBoot = "ignore";
   };
+  # Printing
+  services.printing.enable = true;
 
   # Enable steam hardware udev rules
   hardware.steam-hardware.enable = true;
