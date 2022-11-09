@@ -60,21 +60,6 @@ with lib; let
       command = "qalculate-gtk";
       name = "qalculate";
     }
-    {
-      binding = "<Ctrl>F10";
-      command = "${pkgs.playerctl}/bin/playerctl previous";
-      name = "previous media";
-    }
-    {
-      binding = "<Ctrl>F11";
-      command = "${pkgs.playerctl}/bin/playerctl play-pause";
-      name = "play-pause media";
-    }
-    {
-      binding = "<Ctrl>F12";
-      command = "${pkgs.playerctl}/bin/playerctl next";
-      name = "next media";
-    }
   ];
 in {
   services.xserver = {
@@ -201,6 +186,13 @@ in {
             close = ["<Super>q"];
             show-desktop = ["<Super>d"];
             panel-main-menu = ["<Super>Tab"];
+          };
+
+          # Media keys
+          "org/gnome/settings-daemon/plugins/media-keys" = {
+            play = ["<Control>F11"];
+            previous = ["<Control>F10"];
+            next = ["<Control>F12"];
           };
 
           # Interface
