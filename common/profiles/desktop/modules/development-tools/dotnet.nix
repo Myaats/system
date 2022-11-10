@@ -9,13 +9,15 @@ with lib; {
 
   config = mkIf config.modules.development-tools.dotnet {
     environment.systemPackages = with pkgs; [
-      dotnet-sdk_6
+      (with dotnetCorePackages;
+        combinePackages [
+          sdk_6_0
+          sdk_7_0
+        ])
       omnisharp-roslyn
     ];
 
-    environment.variables = {
-      DOTNET_CLI_TELEMETRY_OPTOUT = "1";
-      DOTNET_SYSTEM_GLOBALIZATION_INVARIANT = "1";
-    };
+    # Telemetry opt-out
+    home-manager.config.home.sessionVariables.DOTNET_CLI_TELEMETRY_OPTOUT = "1";
   };
 }
