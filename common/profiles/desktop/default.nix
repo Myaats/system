@@ -53,6 +53,7 @@ with lib; {
     # Utilities
     barrier
     piper # Frontend to ratbagd
+    remmina # Remote desktop
     qalculate-gtk
     cinnamon.warpinator
     virt-manager # UI for libvirtd
