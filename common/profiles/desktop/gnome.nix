@@ -13,11 +13,11 @@ with lib; let
       appindicator
       gsconnect
       # inhibit-suspend # - Seems to be slightly bugged
-      mpris-indicator-button
       just-perfection
       status-area-horizontal-spacing
       tailscale-status
       transparent-top-bar-adjustable-transparency
+      quick-settings-tweaker
       user-themes
     ]
     # Add improved OSK extension for touch devices
@@ -238,11 +238,23 @@ in {
             panel-button-padding-size = 6;
             panel-indicator-padding-size = 1;
             startup-status = 0;
+            clock-menu-position = 1; # right
+            clock-menu-position-offset = 9; # as right as possible
           };
 
           # Extensions transparent top bar
           "com/ftpix/transparentbar" = {
             transparency = 0;
+          };
+
+          # Extensions quick settings tweaks
+          "org/gnome/shell/extensions/quick-settings-tweaks" = {
+            notifications-integrated = false; # Disable integrated notifications
+          };
+
+          # Extensions status area horizontal padding
+          "org/gnome/shell/extensions/status-area-horizontal-spacing" = {
+            hpadding = 0;
           };
 
           # Configure guake (dropdown terminal)
