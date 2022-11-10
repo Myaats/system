@@ -9,7 +9,7 @@ pkgs: {
     fi
 
     # Store it as a variable to avoid race condition
-    UPDATED_JSON=$(jq -s 'reduce .[] as $item ({}; . * $item)' ${path} ${pkgs.writeText "updated.json" (builtins.toJSON json)})
+    UPDATED_JSON=$(${pkgs.jq}/bin/jq -s 'reduce .[] as $item ({}; . * $item)' ${path} ${pkgs.writeText "updated.json" (builtins.toJSON json)})
     echo "$UPDATED_JSON" > ${path}
   '';
 }
