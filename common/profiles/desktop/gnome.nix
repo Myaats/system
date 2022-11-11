@@ -203,7 +203,6 @@ in {
             font-antialiasing = "rgba";
             font-hinting = "full";
             gtk-theme = "Flat-Remix-GTK-Blue-Darkest-Solid";
-            icon-theme = "Flat-Remix-Blue-Dark";
             shot-battery-percentage = true;
           };
 
@@ -239,7 +238,7 @@ in {
             panel-indicator-padding-size = 1;
             startup-status = 0;
             clock-menu-position = 1; # right
-            clock-menu-position-offset = 9; # as right as possible
+            clock-menu-position-offset = 1; # left of the quick settings
           };
 
           # Extensions transparent top bar
