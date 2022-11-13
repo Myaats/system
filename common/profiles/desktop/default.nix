@@ -38,7 +38,12 @@ with lib; {
     obs-studio
     # Office / Text
     libreoffice-fresh
-    thunderbird
+    (thunderbird.overrideAttrs (oldAttrs: let
+      # Add EDS for EDS Calendar Integration
+      extraLibs = [evolution-data-server];
+    in {
+      libs = oldAttrs.libs + ":" + lib.makeLibraryPath extraLibs + ":" + lib.makeSearchPathOutput "lib" "lib64" extraLibs;
+    }))
     pympress
     zotero
     # File management
