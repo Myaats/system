@@ -48,5 +48,8 @@
     };
   };
 
+  # Enable virtualbox
+  virtualisation.virtualbox.host.enable = true;
+
   system.stateVersion = "22.11";
 }
