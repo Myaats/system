@@ -9,6 +9,7 @@ with lib; {
 
   config = mkIf config.modules.development-tools.texlive {
     environment.systemPackages = with pkgs; [
+      tectonic
       texlive.combined.scheme-full
       gnome-latex
     ];
