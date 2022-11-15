@@ -61,6 +61,7 @@ with lib; let
       name = "qalculate";
     }
   ];
+  user-theme = config.assets.gnome-tweaks;
 in {
   services.xserver = {
     enable = true;
@@ -131,7 +132,11 @@ in {
   ];
 
   # Do home-manager spefific configs
-  home-manager.config = {lib, ...}:
+  home-manager.config = {
+    config,
+    lib,
+    ...
+  }:
     with lib;
     with pkgs.gnomeExtensions; {
       # Setup theme
@@ -256,6 +261,11 @@ in {
             hpadding = 0;
           };
 
+          # Extensions user theme
+          "org/gnome/shell/extensions/user-theme" = {
+            name = "UserTheme";
+          };
+
           # Configure guake (dropdown terminal)
           "apps/guake/general" = {
             window-height = 45;
@@ -291,6 +301,11 @@ in {
           ExecStart = "${pkgs.guake}/bin/guake --hide";
         };
       };
+
+      home.activation.link-gnome-user-theme = config.lib.dag.entryAfter ["writeBoundary"] ''
+        mkdir -p ~/.themes
+        ln -s ${user-theme} ~/.themes/UserTheme
+      '';
     };
 
   # Remove the NixOS logo from GDM

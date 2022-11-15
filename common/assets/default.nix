@@ -9,6 +9,7 @@ with lib; {
   # It is faster to just hardcode these files.
   config.assets = {
     app-grid = ./app-grid.svg;
+    gnome-tweaks = ./GnomeTweaks;
     bg = ./bg.png;
   };
 }

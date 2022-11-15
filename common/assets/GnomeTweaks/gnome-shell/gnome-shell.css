@@ -1,0 +1,25 @@
+/* Decrease padding on clock button */
+.clock, .clock-display {
+    padding: 0 8px;
+}
+
+/* Make the quick settings less around */
+.quick-settings {
+    border-color: #222;
+    border-radius: 16px;
+}
+
+.power-status {
+    padding-right: 6px;
+}
+
+.quick-toggle {
+    border-radius: 8px; 
+}
+
+.quick-toggle-arrow:ltr { border-radius: 0 8px 8px 0; }
+.quick-toggle-arrow:rtl { border-radius: 8px 0 0 8px; }
+
+.appindicator-icon {
+    margin: 0 4px;
+}
