@@ -304,7 +304,7 @@ in {
 
       home.activation.link-gnome-user-theme = config.lib.dag.entryAfter ["writeBoundary"] ''
         mkdir -p ~/.themes
-        ln -s ${user-theme} ~/.themes/UserTheme
+        ln -sfn ${user-theme} ~/.themes/UserTheme
       '';
     };
 
