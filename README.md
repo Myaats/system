@@ -8,6 +8,7 @@
     * `profiles` - Device profiles (e.g., desktop, laptop)
     * `users` - User accounts on my devices
 * `devices` - Device specific configuration
+* `lib` - Overlay for *lib* in nixpkgs 
 
 ## system.sh
 
