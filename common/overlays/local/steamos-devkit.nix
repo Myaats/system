@@ -80,7 +80,7 @@
 in
   buildPythonPackage rec {
     pname = "steamos-devkit";
-    version = "06959f30c06c2336ae9fe9295c59ed1be4ad2304";
+    version = "258ce3cda6c835b6e44098133d9a69a4c65848c5";
 
     src = builtins.fetchGit {
       url = "https://gitlab.steamos.cloud/devkit/steamos-devkit.git";
@@ -90,7 +90,6 @@ in
 
     propagatedBuildInputs = with python.pkgs; [
       pysdl2
-      pyopengl
       signalslot
       ifaddr
       appdirs
@@ -99,6 +98,7 @@ in
       cryptography
       idna
       netifaces
+      numpy
       paramiko
       pycparser
       pynacl
@@ -114,12 +114,6 @@ in
       mv client/* .
     '';
 
-    desktopItem = pkgs.makeDesktopItem {
-      name = "SteamOS-Devkit";
-      exec = "steamos-devkit";
-      desktopName = "SteamOS Devkit";
-    };
-
     postInstall = ''
       mkdir -p $out/bin
 
@@ -127,9 +121,23 @@ in
 
       cp ${pkgs.writeScript "steamos-devkit" ''
         #!${python}/bin/python3
+        import os
+
+        # Workaround to get SDL to work on wayland
+        if os.environ.get("XDG_SESSION_TYPE") == "wayland":
+          os.environ["SDL_VIDEODRIVER"] = "wayland"
 
         import devkit_client.gui2
         devkit_client.gui2.main()
       ''} $out/bin/steamos-devkit
+
+      mkdir -p $out/share/applications
+      cp ${desktopItem}/share/applications/* $out/share/applications
     '';
+
+    desktopItem = pkgs.makeDesktopItem {
+      name = "SteamOS-Devkit";
+      exec = "steamos-devkit";
+      desktopName = "SteamOS Devkit";
+    };
   }
