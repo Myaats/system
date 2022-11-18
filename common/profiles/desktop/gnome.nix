@@ -253,6 +253,7 @@ in {
           # Extensions quick settings tweaks
           "org/gnome/shell/extensions/quick-settings-tweaks" = {
             notifications-integrated = false; # Disable integrated notifications
+            volume-mixer-enabled = false; # Disable in quick settings volume mixer
           };
 
           # Extensions status area horizontal padding
