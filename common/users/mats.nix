@@ -15,6 +15,7 @@
       "wheel"
       "kvm"
       "media"
+      "networkmanager" # Avoid having to type in password all the time
       "libvirtd"
       "wireshark"
     ];
