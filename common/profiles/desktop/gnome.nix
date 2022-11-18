@@ -12,7 +12,6 @@ with lib; let
       always-show-titles-in-overview
       appindicator
       gsconnect
-      # inhibit-suspend # - Seems to be slightly bugged
       just-perfection
       status-area-horizontal-spacing
       tailscale-status
@@ -23,7 +22,7 @@ with lib; let
     # Add improved OSK extension for touch devices
     ++ (
       if builtins.elem "touch" config.device.features
-      then [gnomeExtensions.improved-osk]
+      then with gnomeExtensions; [improved-osk inhibit-suspend]
       else []
     )
     # Toggle battery conservation mode on ideapad devices
