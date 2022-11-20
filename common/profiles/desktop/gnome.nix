@@ -201,7 +201,7 @@ in {
 
           # Interface
           "org/gnome/desktop/interface" = {
-            enable-animations = false;
+            enable-animations = true;
             enable-hot-corners = false;
             color-scheme = "prefer-dark";
             font-antialiasing = "rgba";
