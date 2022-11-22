@@ -3,6 +3,10 @@
   lib,
   ...
 }: {
+  imports = [
+    ./quirks.nix
+  ];
+
   # Setup device
   device = {
     uuid = "b97e7998-60bf-42f9-b314-f728de1fd7c7";
@@ -11,6 +15,7 @@
     features = ["ideapad" "touch"];
   };
 
+  # Modules
   modules.development-tools = {
     cpp = true;
     dotnet = true;
@@ -23,8 +28,14 @@
   # Enable openssh
   services.openssh.enable = true;
 
-  virtualisation.waydroid.enable = true;
+  virtualisation = {
+    # Enable virtualbox
+    virtualbox.host.enable = true;
+    # Enable waydroid
+    waydroid.enable = true;
+  };
 
+  # Workaround to make waydroid work with the newest ROM
   environment.etc."gbinder.d/waydroid.conf".source = lib.mkOverride 50 (pkgs.writeText "waydroid.conf" ''
     [Protocol]
     /dev/binder = aidl3
@@ -36,20 +47,6 @@
     /dev/hwbinder = hidl
   '');
 
-  home-manager.config = {
-    # Setup tablet-osk service
-    systemd.user.services.tablet-osk = {
-      Unit = {
-        After = ["graphical-session-pre.target"];
-        PartOf = ["graphical-session.target"];
-      };
-      Install.WantedBy = ["graphical-session.target"];
-      Service.ExecStart = "${pkgs.local.tablet-osk}/bin/tablet-osk";
-    };
-  };
-
-  # Enable virtualbox
-  virtualisation.virtualbox.host.enable = true;
-
+  # Set NixOS state version
   system.stateVersion = "22.11";
 }
