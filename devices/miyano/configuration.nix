@@ -9,32 +9,34 @@
   # ZFS requires hostid
   networking.hostId = "b1727a72";
 
-  modules.development-tools = {
-    cpp = true;
-    database.postgres = true;
-    dotnet = true;
-    ldap = true;
-    nix = true;
-    node = true;
-    podman = true;
-    python = true;
-    rust = true;
-    steamos = true;
-    texlive = true;
+  # Various personal modules
+  modules = {
+    # Development tools
+    development-tools = {
+      cpp = true;
+      database.postgres = true;
+      dotnet = true;
+      ldap = true;
+      nix = true;
+      node = true;
+      podman = true;
+      python = true;
+      rust = true;
+      steamos = true;
+      texlive = true;
+    };
+    # Hardware
+    hardware.bluetooth.enable = true; # Enable bluetooth
+    # Enable mullvad
+    services.mullvad = {
+      enable = true;
+      localNetworkSharing = true;
+      location = "no";
+    };
   };
 
   # Enable openssh
   services.openssh.enable = true;
-
-  # Hardware
-  modules.hardware.bluetooth.enable = true; # Enable bluetooth
-
-  # Enable mullvad
-  modules.services.mullvad = {
-    enable = true;
-    localNetworkSharing = true;
-    location = "no";
-  };
 
   # Set NixOS state version
   system.stateVersion = "22.11";
