@@ -22,7 +22,7 @@ with lib; let
     # Add improved OSK extension for touch devices
     ++ (
       if builtins.elem "touch" config.device.features
-      then with gnomeExtensions; [improved-osk inhibit-suspend]
+      then with gnomeExtensions; [improved-osk]
       else []
     )
     # Toggle battery conservation mode on ideapad devices
