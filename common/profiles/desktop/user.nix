@@ -85,27 +85,30 @@ in {
     # Setup nextcloud-client
     services.nextcloud-client = {
       enable = true;
+      startInBackground = true;
     };
+    # Stop nextcloud-client from starting too early
     systemd.user.services.nextcloud-client = {
-      Service.ExecStartPre = lib.mkForce "${pkgs.coreutils}/bin/sleep 10";
       Unit = {
         After = lib.mkForce ["graphical-session.target"];
         PartOf = lib.mkForce [];
+        Requires = ["graphical-session.target"];
       };
+      Install.WantedBy = ["graphical-session.target"];
     };
 
     # Birdtray service
     systemd.user.services.birdtray = {
       Unit = {
-        After = ["graphical-session-pre.target"];
-        PartOf = ["graphical-session.target"];
+        After = ["graphical-session.target"];
+        Requires = ["graphical-session.target"];
       };
-      Install.WantedBy = ["graphical-session.target"];
       Service = {
         ExecStart = "${pkgs.birdtray}/bin/birdtray";
         # Birdtray cannot control thunderbird if wayland is enabled...
         Environment = "MOZ_ENABLE_WAYLAND=0";
       };
+      Install.WantedBy = ["graphical-session.target"];
     };
 
     # Update birdtray config
