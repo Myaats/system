@@ -94,6 +94,35 @@ in {
       };
     };
 
+    # Birdtray service
+    systemd.user.services.birdtray = {
+      Unit = {
+        After = ["graphical-session-pre.target"];
+        PartOf = ["graphical-session.target"];
+      };
+      Install.WantedBy = ["graphical-session.target"];
+      Service = {
+        ExecStart = "${pkgs.birdtray}/bin/birdtray";
+        # Birdtray cannot control thunderbird if wayland is enabled...
+        Environment = "MOZ_ENABLE_WAYLAND=0";
+      };
+    };
+
+    # Update birdtray config
+    home.activation.update-birdtray-config = config.lib.dag.entryAfter ["writeBoundary"] (lib.mergeJson "~/.config/birdtray-config.json" {
+      "advanced/runProcessOnChange" = "";
+      "advanced/tbcmdline" = [
+        "/run/current-system/sw/bin/thunderbird"
+      ];
+      "advanced/tbwindowmatch" = " Mozilla Thunderbird";
+      "common/hidewhenminimized" = true;
+      "common/hidewhenrestarted" = true;
+      "common/hidewhenstarted" = true;
+      "common/launchthunderbird" = true;
+      "common/restartthunderbird" = true;
+      "common/showhidethunderbird" = true;
+    });
+
     # Empty Downloads on boot
     systemd.user.tmpfiles.rules = [
       "R! /home/${config.home.username}/Downloads/**"
