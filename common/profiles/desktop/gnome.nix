@@ -276,6 +276,12 @@ in {
             use-trayicon = false;
           };
 
+          # Text editor
+          "org/gnome/TextEditor" = {
+            restore-session = false;
+            style-scheme = "builder-dark";
+          };
+
           # Enable custom keybinds
           "org/gnome/settings-daemon/plugins/media-keys" = {
             custom-keybindings = imap0 (i: b: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom${toString i}/") keybinds;
