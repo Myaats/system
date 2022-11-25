@@ -2,36 +2,8 @@
   nixpkgs.overlays = [
     (self: super:
       with super; {
-        # Override python packages
-        pythonPackagesExtensions =
-          super.pythonPackagesExtensions
-          ++ [
-            (
-              python-self: python-super:
-                with python-super; {
-                  # Add libindicator support to pystray
-                  pystray = python-super.pystray.overrideAttrs (oldAttrs: {
-                    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [gobject-introspection];
-                    propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [pygobject3 gtk3 libayatana-appindicator];
-                  });
-                }
-            )
-          ];
-        # Override jellyfin-mpv-shim
-        jellyfin-mpv-shim = super.jellyfin-mpv-shim.overrideAttrs (oldAttrs: rec {
-          nativeBuildInputs =
-            oldAttrs.nativeBuildInputs
-            ++ [
-              wrapGAppsHook
-              gobject-introspection
-            ];
-
-          # needed for pystray to access appindicator using GI
-          preFixup = ''
-            makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
-          '';
-          dontWrapGApps = true;
-
+        # Add desktop item
+        jellyfin-mpv-shim = jellyfin-mpv-shim.overrideAttrs (oldAttrs: rec {
           # Copy icons to output
           postInstall = ''
             for s in 16 32 48 64 128 256; do
