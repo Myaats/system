@@ -3,7 +3,7 @@
   fetchFromGitHub,
   pkg-config,
   dbus,
-  mpv-unwrapped
+  mpv-unwrapped,
 }:
 stdenv.mkDerivation rec {
   pname = "mpv_inhibit_gnome";
@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-LSGg5gAQE2JpepBqhz6D6d3NlqYaU4bjvYf1F+oLphQ=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ dbus mpv-unwrapped ];
+  buildInputs = [dbus mpv-unwrapped];
 
   passthru.scriptName = "mpv_inhibit_gnome.so";
 
