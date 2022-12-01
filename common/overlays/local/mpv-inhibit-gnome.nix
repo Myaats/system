@@ -23,6 +23,6 @@ stdenv.mkDerivation rec {
   passthru.scriptName = "mpv_inhibit_gnome.so";
 
   installPhase = ''
-    install -D ./lib/mpv_inhibit_gnome.so $out/share/mpv/scripts
+    install -D ./lib/mpv_inhibit_gnome.so $out/share/mpv/scripts/mpv_inhibit_gnome.so
   '';
 }
