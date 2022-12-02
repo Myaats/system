@@ -98,10 +98,8 @@ in {
   # Avoid install some unneeded gnome apps
   environment.gnome.excludePackages = with pkgs.gnome; [
     totem
-    cheese
     geary
     gnome-contacts
-    gnome-maps
     gnome-music
   ];
 
