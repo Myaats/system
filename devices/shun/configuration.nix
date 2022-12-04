@@ -16,13 +16,22 @@
   };
 
   # Modules
-  modules.development-tools = {
-    cpp = true;
-    dotnet = true;
-    nix = true;
-    python = true;
-    rust = true;
-    texlive = true;
+  modules = {
+    # Development tools
+    development-tools = {
+      cpp = true;
+      dotnet = true;
+      nix = true;
+      python = true;
+      rust = true;
+      texlive = true;
+    };
+    # Enable mullvad
+    services.mullvad = {
+      enable = true;
+      localNetworkSharing = true;
+      location = "no";
+    };
   };
 
   # Enable openssh
