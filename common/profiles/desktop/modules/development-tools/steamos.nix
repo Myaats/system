@@ -9,7 +9,7 @@ with lib; {
 
   config = mkIf config.modules.development-tools.steamos {
     environment.systemPackages = with pkgs; [
-      local.steamos-devkit
+      steamos-devkit
     ];
   };
 }
