@@ -226,6 +226,11 @@ in {
             current-workspace-only = true;
           };
 
+          # Mutter
+          "org/gnome/mutter" = {
+            experimental-features = ["rt-scheduler"];
+          };
+
           # Extensions just-perfections
           "org/gnome/shell/extensions/just-perfection" = {
             accessibility-menu = false;
