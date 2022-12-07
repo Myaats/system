@@ -53,7 +53,10 @@ in {
               name = last (splitString "/" m);
             in ''
               echo "obj-m += ${name}.o" >> $TMP/Makefile
-              cp ${m}.c $TMP/${name}.c
+              ln -s $(realpath ${m}.c) $TMP/${name}.c
+              if [ -f ${m}.h ]; then
+                ln -s $(realpath ${m}.h) $TMP/${name}.h
+              fi
             '')
             km.modules))
           cfg.kernelModulePatches))}
