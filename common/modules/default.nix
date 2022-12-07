@@ -1,6 +1,10 @@
 {lib, ...}:
 with lib; {
-  imports = importNixFiles [
-    ./services
-  ];
+  imports =
+    importNixFiles [
+      ./services
+    ]
+    ++ [
+      ./boot.nix
+    ];
 }

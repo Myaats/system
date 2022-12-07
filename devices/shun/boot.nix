@@ -1,4 +1,10 @@
-{modulesPath, ...}: {
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
@@ -24,8 +30,10 @@
       };
     };
     # kernel
-    kernelModules = ["kvm-amd" "amd_pstate"];
-    blacklistedKernelModules = ["acpi_cpufreq"]; # Disable ACPI cpufreq (in favor of p-state)
+    kernelPackages = lib.mkForce pkgs.linuxPackages_testing; # use testing until 6.1 is out
+    extraModulePackages = with config.boot.kernelPackages; [zenpower];
+    kernelModules = ["kvm-amd" "amd_pstate" "zenpower"];
+    blacklistedKernelModules = ["acpi_cpufreq" "k10temp"]; # Disable ACPI cpufreq (in favor of p-state), and k10temp for zenpower
   };
 
   # Mount filesystems
