@@ -1,0 +1,134 @@
+diff --git a/sound/soc/codecs/tas2562.c b/sound/soc/codecs/tas2562.c
+index b486d0bd86c9..57091d996457 100644
+--- a/sound/soc/codecs/tas2562.c
++++ b/sound/soc/codecs/tas2562.c
+@@ -4,6 +4,7 @@
+ // Copyright (C) 2019 Texas Instruments Inc.
+ 
+ 
++#include <linux/acpi.h>
+ #include <linux/module.h>
+ #include <linux/errno.h>
+ #include <linux/device.h>
+@@ -290,6 +291,8 @@ static int tas2562_hw_params(struct snd_pcm_substream *substream,
+ 	struct tas2562_data *tas2562 = snd_soc_component_get_drvdata(component);
+ 	int ret;
+ 
++	dev_err_once(tas2562->dev, "tas hw parms\n");
++
+ 	ret = tas2562_set_bitwidth(tas2562, params_format(params));
+ 	if (ret) {
+ 		dev_err(tas2562->dev, "set bitwidth failed, %d\n", ret);
+@@ -365,6 +368,10 @@ static int tas2562_update_pwr_ctrl(struct tas2562_data *tas2562)
+ 	else
+ 		val = TAS2562_SHUTDOWN;
+ 
++	dev_err(tas2562->dev, "update pwr ctrl %d\n", val);
++
++	val = TAS2562_ACTIVE;
++
+ 	ret = snd_soc_component_update_bits(component, TAS2562_PWR_CTRL,
+ 					    TAS2562_MODE_MASK, val);
+ 	if (ret < 0)
+@@ -385,6 +392,8 @@ static int tas2562_codec_probe(struct snd_soc_component *component)
+ {
+ 	struct tas2562_data *tas2562 = snd_soc_component_get_drvdata(component);
+ 
++	dev_err(tas2562->dev, "codec probe\n");
++
+ 	tas2562->component = component;
+ 
+ 	if (tas2562->sdz_gpio)
+@@ -695,7 +704,7 @@ static int tas2562_parse_dt(struct tas2562_data *tas2562)
+ 	if (tas2562->model_id == TAS2110)
+ 		return ret;
+ 
+-	ret = fwnode_property_read_u32(dev->fwnode, "ti,imon-slot-no",
++	/*ret = fwnode_property_read_u32(dev->fwnode, "ti,imon-slot-no",
+ 			&tas2562->i_sense_slot);
+ 	if (ret) {
+ 		dev_err(dev, "Property %s is missing setting default slot\n",
+@@ -710,7 +719,9 @@ static int tas2562_parse_dt(struct tas2562_data *tas2562)
+ 		dev_info(dev, "Property %s is missing setting default slot\n",
+ 			"ti,vmon-slot-no");
+ 		tas2562->v_sense_slot = 2;
+-	}
++	}*/
++	tas2562->i_sense_slot = 0;
++	tas2562->v_sense_slot = 2;
+ 
+ 	if (tas2562->v_sense_slot < tas2562->i_sense_slot) {
+ 		dev_err(dev, "Vsense slot must be greater than Isense slot\n");
+@@ -729,21 +740,38 @@ static const struct i2c_device_id tas2562_id[] = {
+ };
+ MODULE_DEVICE_TABLE(i2c, tas2562_id);
+ 
++static const struct acpi_device_id tas2562_acpi_match[] = {
++	{ "INT8866", .driver_data = (kernel_ulong_t)TAS2563 },
++	{ },
++};
++MODULE_DEVICE_TABLE(acpi, tas2562_acpi_match);
++
+ static int tas2562_probe(struct i2c_client *client)
+ {
+ 	struct device *dev = &client->dev;
+ 	struct tas2562_data *data;
++	struct acpi_device *adev;
+ 	int ret;
+ 	const struct i2c_device_id *id;
+ 
++	// HACK patch for 14ARB7
++	// Basicaly Linux will only use the first i2c device in the ACPI table meaning only one
++	// speaker would work unless this is done, TODO: Move to DMI-based quirk
++	client = devm_i2c_new_dummy_device(dev, client->adapter, 0x48);
++
++	adev = ACPI_COMPANION(dev);
++	if (!adev) {
++		dev_err(&client->dev, "Error could not get ACPI device\n");
++		return -ENODEV;
++	}
++
+ 	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+ 	if (!data)
+ 		return -ENOMEM;
+ 
+-	id = i2c_match_id(tas2562_id, client);
+ 	data->client = client;
+ 	data->dev = &client->dev;
+-	data->model_id = id->driver_data;
++	data->model_id = dev_get_drvdata(&client->dev);
+ 
+ 	tas2562_parse_dt(data);
+ 
+@@ -756,7 +784,13 @@ static int tas2562_probe(struct i2c_client *client)
+ 
+ 	dev_set_drvdata(&client->dev, data);
+ 
+-	if (data->model_id == TAS2110)
++	regmap_write(data->regmap, TAS2562_PWR_CTRL, 0);
++	regmap_write(data->regmap, TAS2562_PB_CFG1, 0);
++
++	// TODO: Find out how to DAI link the amp
++	return 0;
++
++	/*if (data->model_id == TAS2110)
+ 		return devm_snd_soc_register_component(dev,
+ 						       &soc_component_dev_tas2110,
+ 						       tas2562_dai,
+@@ -764,7 +798,7 @@ static int tas2562_probe(struct i2c_client *client)
+ 
+ 	return devm_snd_soc_register_component(dev, &soc_component_dev_tas2562,
+ 					       tas2562_dai,
+-					       ARRAY_SIZE(tas2562_dai));
++					       ARRAY_SIZE(tas2562_dai));*/
+ 
+ }
+ 
+@@ -783,6 +817,7 @@ static struct i2c_driver tas2562_i2c_driver = {
+ 	.driver = {
+ 		.name = "tas2562",
+ 		.of_match_table = of_match_ptr(tas2562_of_match),
++		.acpi_match_table = tas2562_acpi_match,
+ 	},
+ 	.probe_new = tas2562_probe,
+ 	.id_table = tas2562_id,

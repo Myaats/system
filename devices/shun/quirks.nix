@@ -1,4 +1,10 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: let
+  kmod_ver = config.boot.kernelPackages.kernel.modDirVersion;
+in {
   modules.boot.kernelModulePatches = [
     # Add driver for Lenovo YMC (WMI)
     {
@@ -12,11 +18,63 @@
       ];
       modules = ["drivers/platform/x86/ideapad-laptop" "drivers/platform/x86/lenovo-ymc"];
     }
+    {
+      name = "Build tas2562 driver w/ patches";
+      patches = [./tas2563-acpi.diff];
+      modules = ["sound/soc/codecs/tas2562"];
+    }
   ];
+
+  hardware.i2c = {
+    enable = true;
+    group = "wheel";
+  };
+
+  # Create wrapped script to fix the tas2563
+  security.wrappers.fix-tas2563 = {
+    capabilities = "cap_sys_module+ep";
+    owner = "root";
+    group = "root";
+    source = "${pkgs.runCommandCC "fix-tas2563" {
+        nativeBuildInputs = [pkgs.makeWrapper];
+      }
+      ''
+        mkdir -p $out/bin
+        cp -p ${pkgs.writeScript "fix-tas2563" ''
+          ${pkgs.kmod}/bin/rmmod tas2562
+          ${pkgs.kmod}/bin/insmod /run/current-system/kernel-modules/lib/modules/${kmod_ver}/kernel/sound/soc/codecs/tas2562.ko.xz
+        ''} $out/bin/fix-tas2563
+        wrapProgram $out/bin/fix-tas2563
+      ''}/bin/fix-tas2563";
+  };
+
+  systemd.services.fix-yoga-speakers-suspend = {
+    wantedBy = ["suspend.target"];
+    after = ["suspend.target"];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "/run/wrappers/bin/fix-tas2563";
+    };
+  };
+
+  services.acpid = {
+    enable = true;
+    handlers = {
+      # Fix speakers after headphone unplug
+      headphone-unplugged = {
+        action = "/run/wrappers/bin/fix-tas2563";
+        event = "jack/headphone HEADPHONE unplug";
+      };
+    };
+  };
 
   # Expose input switches to userspace
   services.udev.extraRules = ''
     KERNEL=="event[0-9]*", ENV{ID_INPUT_SWITCH}=="1", MODE:="0666"
+  '';
+
+  boot.extraModprobeConfig = ''
+    options snd_hda_intel power_save=0 power_save_controller=N
   '';
 
   # Setup user services
