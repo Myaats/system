@@ -24,6 +24,7 @@ in {
           };
           modules = mkOption {
             description = "Modules to build and install";
+            default = [];
             type = types.listOf types.str;
           };
         };
@@ -34,7 +35,12 @@ in {
   };
 
   config = mkIf (cfg.kernelModulePatches != []) {
-    boot.extraModulePackages = [
+    boot.extraModulePackages = let
+      # Group the kernel modules to build by module directory with modules names as list
+      kernelModules =
+        mapAttrs (_: modules: map (m: baseNameOf m) modules)
+        (groupBy (m: dirOf m) (flatten (map (p: p.modules) cfg.kernelModulePatches)));
+    in [
       # Override the current kernel
       (pkgs.stdenv.mkDerivation {
         name = "linux-modules-patched-${kernel.version}";
@@ -46,35 +52,37 @@ in {
         patches = concatLists (map (km: km.patches) cfg.kernelModulePatches);
         # Find the KDIR for the current kernel
         KDIR = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
-        # Build the kernel modules
-        buildPhase = ''
-          # Copy the module sources and add them to the new Makefile
-          ${concatStringsSep "\n" (flatten (map (km: (map (m: let
-              name = last (splitString "/" m);
-            in ''
-              echo "obj-m += ${name}.o" >> $TMP/Makefile
-              ln -s $(realpath ${m}.c) $TMP/${name}.c
-              if [ -f ${m}.h ]; then
-                ln -s $(realpath ${m}.h) $TMP/${name}.h
-              fi
-            '')
-            km.modules))
-          cfg.kernelModulePatches))}
 
-          # Build the modules
-          make -C $KDIR M=$TMP modules
-        '';
-        # Install the kernel modules
-        installPhase = concatStringsSep "\n" (flatten (map (km: (map (m: let
-            name = last (splitString "/" m);
-          in ''
-            # Compress the kernel module
-            xz $TMP/${name}.ko
-            # Install it with the same permissions that NixOS uses
-            install -vD -m0444 $TMP/${name}.ko.xz $out/lib/modules/${kernel.modDirVersion}/kernel/${m}.ko.xz
+        # Build the kernel modules
+        buildPhase = concatStringsSep "\n" (mapAttrsToList (dir: modules: ''
+            # Convert all the modules that should be built to obj-m
+            ${concatStringsSep "\n" (map (module: ''
+                sed -i "s/obj-\$\(.*\).*\+=.*${module}\.o/obj-m += ${module}.o/" ${dir}/Makefile
+              '')
+              modules)}
+
+            # Remove all obj-y to avoid building other things
+            sed -i "s/obj-y.*+=.*//" ${dir}/Makefile
+
+            # Remove rest of modules so config does not build them
+            sed -i "s/obj-\$\(.*\).*\+=.*//" ${dir}/Makefile
+
+            # Build the modules
+            make -C $KDIR M=$(realpath ${dir}) modules
           '')
-          km.modules))
-        cfg.kernelModulePatches));
+          kernelModules);
+
+        # Install the kernel modules
+        installPhase = concatStringsSep "\n" (flatten (mapAttrsToList (dir: modules: (map (module: ''
+            # Compress the kernel module
+            xz ${dir}/${module}.ko
+
+            # Install it with the same permissions that NixOS uses
+            install -vD -m0444 ${dir}/${module}.ko.xz \
+              $out/lib/modules/${kernel.modDirVersion}/kernel/${module}.ko.xz
+          '')
+          modules))
+        kernelModules));
 
         # Higher priority than the actual kernel
         meta.priority = 0;
