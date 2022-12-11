@@ -32,7 +32,7 @@
     # kernel
     kernelPackages = lib.mkForce pkgs.linuxPackages_testing; # use testing until 6.1 is out
     extraModulePackages = with config.boot.kernelPackages; [zenpower];
-    kernelModules = ["kvm-amd" "amd_pstate" "zenpower" "tas2562"];
+    kernelModules = ["kvm-amd" "amd_pstate" "zenpower" "snd_soc_tas2562"];
     blacklistedKernelModules = ["acpi_cpufreq" "k10temp"]; # Disable ACPI cpufreq (in favor of p-state), and k10temp for zenpower
   };
 

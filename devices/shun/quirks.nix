@@ -21,7 +21,7 @@ in {
     {
       name = "Build tas2562 driver w/ patches";
       patches = [./tas2563-acpi.diff];
-      modules = ["sound/soc/codecs/tas2562"];
+      modules = ["sound/soc/codecs/snd-soc-tas2562"];
     }
   ];
 
@@ -41,8 +41,8 @@ in {
       ''
         mkdir -p $out/bin
         cp -p ${pkgs.writeScript "fix-tas2563" ''
-          ${pkgs.kmod}/bin/rmmod tas2562
-          ${pkgs.kmod}/bin/insmod /run/current-system/kernel-modules/lib/modules/${kmod_ver}/kernel/sound/soc/codecs/tas2562.ko.xz
+          ${pkgs.kmod}/bin/rmmod snd_soc_tas2562
+          ${pkgs.kmod}/bin/insmod /run/current-system/kernel-modules/lib/modules/${kmod_ver}/kernel/sound/soc/codecs/snd-soc-tas2562.ko.xz
         ''} $out/bin/fix-tas2563
         wrapProgram $out/bin/fix-tas2563
       ''}/bin/fix-tas2563";
