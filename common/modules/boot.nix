@@ -79,7 +79,7 @@ in {
 
             # Install it with the same permissions that NixOS uses
             install -vD -m0444 ${dir}/${module}.ko.xz \
-              $out/lib/modules/${kernel.modDirVersion}/kernel/${module}.ko.xz
+              $out/lib/modules/${kernel.modDirVersion}/kernel/${dir}/${module}.ko.xz
           '')
           modules))
         kernelModules));
