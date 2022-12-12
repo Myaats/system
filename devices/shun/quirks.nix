@@ -35,10 +35,6 @@ in {
     KERNEL=="event[0-9]*", ENV{ID_INPUT_SWITCH}=="1", MODE:="0666"
   '';
 
-  boot.extraModprobeConfig = ''
-    options snd_hda_intel power_save=0 power_save_controller=N
-  '';
-
   # Setup user services
   home-manager.config = {
     # Setup tablet-osk service to toggle touch keyboard
