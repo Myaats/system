@@ -277,6 +277,7 @@ in {
             hide-tabs-if-one-tab = true;
             use-popup = false;
             use-trayicon = false;
+            restore-tabs-startup = false;
           };
 
           # Text editor
