@@ -20,6 +20,7 @@ in {
           };
           patches = mkOption {
             description = "Patch files to apply to the kernel source tree";
+            default = [];
             type = types.listOf types.anything;
           };
           modules = mkOption {
