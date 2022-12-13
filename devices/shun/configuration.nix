@@ -40,21 +40,7 @@
   virtualisation = {
     # Enable virtualbox
     virtualbox.host.enable = true;
-    # Enable waydroid
-    waydroid.enable = true;
   };
-
-  # Workaround to make waydroid work with the newest ROM
-  environment.etc."gbinder.d/waydroid.conf".source = lib.mkOverride 50 (pkgs.writeText "waydroid.conf" ''
-    [Protocol]
-    /dev/binder = aidl3
-    /dev/vndbinder = aidl3
-    /dev/hwbinder = hidl
-    [ServiceManager]
-    /dev/binder = aidl3
-    /dev/vndbinder = aidl3
-    /dev/hwbinder = hidl
-  '');
 
   # Set NixOS state version
   system.stateVersion = "22.11";
