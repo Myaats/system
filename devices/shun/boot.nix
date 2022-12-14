@@ -62,5 +62,7 @@
     video.hidpi.enable = true;
     # iio sensors
     sensor.iio.enable = true;
+    # extra firmware
+    firmware = [pkgs.local.tas2563-fw];
   };
 }
