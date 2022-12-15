@@ -19,12 +19,6 @@ with lib; let
       quick-settings-tweaker
       user-themes
     ]
-    # Add improved OSK extension for touch devices
-    ++ (
-      if builtins.elem "touch" config.device.features
-      then with gnomeExtensions; [improved-osk]
-      else []
-    )
     # Toggle battery conservation mode on ideapad devices
     ++ (
       if builtins.elem "ideapad" config.device.features

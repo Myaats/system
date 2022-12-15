@@ -38,14 +38,6 @@ fn set_tablet_mode(tablet_mode: bool) {
         .arg(tablet_mode.to_string())
         .spawn()
         .expect("write screen kb state");
-
-    // Set OSK button (extension)
-    Command::new("dconf")
-        .arg("write")
-        .arg("/org/gnome/shell/extensions/improvedosk/show-statusbar-icon")
-        .arg(tablet_mode.to_string())
-        .spawn()
-        .expect("write osk icon state");
 }
 
 fn main() {
