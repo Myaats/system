@@ -1,7 +1,7 @@
 {
   stdenvNoCC,
   fetchurl,
-  innoextract
+  innoextract,
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "tas2563-fw-14arb7";
