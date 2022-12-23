@@ -18,7 +18,7 @@ stdenvNoCC.mkDerivation rec {
 
   installPhase = ''
     install -D ./code\$GetExtractPath\$/Source/ThirdParty/TI/TAS2563Firmware.bin \
-      $out/lib/firmware/tas2563_uCDSP.bin
+      $out/lib/firmware/TAS2563Firmware.bin
   '';
 
   phases = ["unpackPhase" "installPhase"];
