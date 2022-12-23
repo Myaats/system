@@ -126,4 +126,10 @@ with lib; {
     [system_default_sect]
     Options = UnsafeLegacyRenegotiation
   '';
+
+  # Systemd
+  systemd.extraConfig = ''
+    # Resonable timeout for stopping on desktop
+    DefaultTimeoutStopSec=15s
+  '';
 }
