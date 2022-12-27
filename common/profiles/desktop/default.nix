@@ -19,8 +19,8 @@ with lib; {
     ./user.nix
   ];
 
-  # Use latest zen kernel
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  # Use latest xanmod kernel
+  boot.kernelPackages = pkgs.linuxPackages_xanmod;
 
   # Various system packages
   environment.systemPackages = with pkgs; [
