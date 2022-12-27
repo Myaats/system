@@ -8,8 +8,8 @@ with lib; {
     # Enable mpv with vaapi/gpu
     programs.mpv = {
       enable = true;
-      scripts = [
-        pkgs.local.mpv-inhibit-gnome
+      scripts = with pkgs.mpvScripts; [
+        inhibit-gnome
       ];
       config = {
         hwdec = "vaapi";
