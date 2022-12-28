@@ -9,6 +9,7 @@ with lib; {
     ./editors
     ./modules
     ./audio.nix
+    ./birdtray.nix
     ./fonts.nix
     ./gnome.nix
     ./hardware.nix
