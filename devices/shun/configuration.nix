@@ -42,6 +42,9 @@
     virtualbox.host.enable = true;
   };
 
+  # Enable fprintd
+  services.fprintd.enable = true;
+
   # Set NixOS state version
   system.stateVersion = "22.11";
 }
