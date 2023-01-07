@@ -8,7 +8,7 @@
 lib.mkIf (config.device.profile
   != "laptop") {
   # Home config for mats on desktop profile
-  home-manager.config = {...}: {
+  home-manager.config = {config, ...}: {
     # Birdtray service
     systemd.user.services.birdtray = {
       Unit = {
