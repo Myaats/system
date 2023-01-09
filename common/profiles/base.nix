@@ -19,6 +19,7 @@
     whois
     # System
     pciutils
+    usbutils
     smartmontools
     htop
     btop
